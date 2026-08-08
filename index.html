@@ -215,6 +215,49 @@ body{
   .photo-panel{min-height:260px}.photo-panel img{min-height:230px}
   .card{border-radius:23px}
 }
+
+.gallery-title{text-align:center;margin:40px 0 18px}
+.gallery-title h3{font-size:clamp(24px,4vw,34px)}
+.gallery-title p{color:#aeb2d0;margin-top:7px;font-size:13px}
+.gallery{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+}
+.memory{
+  position:relative;margin:0;overflow:hidden;border-radius:20px;
+  min-height:210px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.045);
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  transition:.35s;
+}
+.memory:nth-child(2),.memory:nth-child(5){transform:translateY(18px)}
+.memory:hover{transform:translateY(-5px) scale(1.02)}
+.memory:nth-child(2):hover,.memory:nth-child(5):hover{transform:translateY(13px) scale(1.02)}
+.memory img{width:100%;height:245px;object-fit:cover;display:block;transition:.5s}
+.memory:hover img{transform:scale(1.06)}
+.memory:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.78))}
+.memory figcaption{position:absolute;z-index:2;left:15px;right:15px;bottom:13px;color:#fff;font-size:13px;line-height:1.4}
+.question-stack{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.love-question{
+  padding:18px;border-radius:18px;
+  background:linear-gradient(145deg,rgba(255,114,200,.09),rgba(105,231,255,.045));
+  border:1px solid rgba(255,255,255,.1);min-height:125px;
+}
+.love-question b{display:block;color:#ffb2df;font-size:18px;margin-bottom:8px}
+.love-question span{color:#d9d9ea;font-size:13px;line-height:1.6}
+.soft-ending{
+  margin-top:25px;text-align:center;padding:25px;border-radius:22px;
+  background:radial-gradient(circle at center,rgba(255,95,190,.12),transparent 65%);
+  border:1px solid rgba(255,255,255,.08)
+}
+.soft-ending .quote{font-size:clamp(19px,3vw,28px);font-weight:800;line-height:1.4}
+.soft-ending small{display:block;color:#aeb2d0;margin-top:10px;line-height:1.6}
+@media(max-width:760px){
+ .gallery{grid-template-columns:1fr 1fr}
+ .memory:nth-child(2),.memory:nth-child(5){transform:none}
+ .memory img{height:220px}
+ .question-stack{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -260,15 +303,49 @@ body{
     </div>
 
     <div class="question">
-      <h3>Jadi... kalau aku ajak kamu menjelajah semesta,<br><span>mau jadi orang yang aku cari di setiap galaksi?</span> 🪐</h3>
-      <p>Tenang, aku nggak janji jadi astronot. Tapi aku janji selalu punya alasan untuk bikin kamu tersenyum.</p>
+      <h3>Kalau boleh pilih satu tempat untuk pulang,<br><span>kamu mau nggak jadi tempat pulangku? 💗</span></h3>
+      <p>Nggak harus jawab sekarang... tapi jangan buru-buru pergi. Aku masih punya beberapa hal manis buat kamu. 🌙</p>
+
+      <div class="question-stack">
+        <div class="love-question">
+          <b>🌷 Kalau aku kangen?</b>
+          <span>Boleh nggak aku datang dengan alasan sederhana: cuma mau lihat senyummu sebentar?</span>
+        </div>
+        <div class="love-question">
+          <b>🌙 Kalau kita ketemu?</b>
+          <span>Menurutmu siapa yang bakal lebih dulu salting: aku, kamu, atau kita berdua?</span>
+        </div>
+        <div class="love-question">
+          <b>✨ Kalau suatu hari?</b>
+          <span>Maukah kamu tetap jadi nama yang paling ingin aku cari di antara ramainya dunia?</span>
+        </div>
+      </div>
+
       <div class="buttons">
-        <button class="btn" onclick="sayYes()">Mau, dong 💖</button>
-        <button class="btn alt" onclick="sayYes()">Boleh, asal bareng kamu ✨</button>
+        <button class="btn" onclick="sayYes()">Iya, aku mau 💖</button>
+        <button class="btn alt" onclick="sayYes()">Jangan bikin aku salting ✨</button>
+      </div>
+
+      <div class="soft-ending">
+        <div class="quote">“Aku nggak perlu seluruh galaksi.<br>Aku cuma perlu satu bintang yang mau tetap tinggal: kamu.”</div>
+        <small>Dan kalau kamu masih betah di sini, berarti aku boleh sedikit berharap, kan? 🥺💫</small>
       </div>
     </div>
 
-    <div class="final" id="final">
+    <div class="gallery-title">
+      <h3>📸 Potongan Kecil yang Aku Suka</h3>
+      <p>Karena beberapa kenangan terlalu sayang kalau cuma disimpan di folder.</p>
+    </div>
+    <section class="gallery">
+<figure class="memory"><img src="IMG-20260626-WA0073.jpg" alt="Kenangan 2" loading="lazy"><figcaption>Senyummu yang diam-diam aku simpan.</figcaption></figure>
+<figure class="memory"><img src="IMG-20260627-WA0044.jpg" alt="Kenangan 3" loading="lazy"><figcaption>Satu foto, seribu alasan buat tersenyum.</figcaption></figure>
+<figure class="memory"><img src="IMG-20260627-WA0053.jpg" alt="Kenangan 4" loading="lazy"><figcaption>Kalau rindu punya bentuk, mungkin seperti ini.</figcaption></figure>
+<figure class="memory"><img src="IMG-20260629-WA0109.jpg" alt="Kenangan 5" loading="lazy"><figcaption>Entah kenapa, kamu selalu terlihat istimewa.</figcaption></figure>
+<figure class="memory"><img src="IMG-20260629-WA0114.jpg" alt="Kenangan 6" loading="lazy"><figcaption>Bagian favoritku dari hari ini: melihat kamu.</figcaption></figure>
+<figure class="memory"><img src="Screenshot_20260627-121344.png" alt="Kenangan 7" loading="lazy"><figcaption>Semesta ternyata punya cara sendiri mempertemukan kita.</figcaption></figure>
+<figure class="memory"><img src="Screenshot_20260627-121451.png" alt="Kenangan 8" loading="lazy"><figcaption>Foto ini boleh biasa, tapi orangnya luar biasa.</figcaption></figure></section>
+
+    <div class="final" id="final"><div class="final" id="final">
       <img src="IMG-20260627-WA0044.jpg" alt="Foto kenangan">
       <p class="big">Berarti kita satu frekuensi. 💫</p>
       <p>Semesta boleh punya miliaran bintang, tapi buatku kamu tetap yang paling terang. Dan kalau suatu hari kamu merasa sendirian, ingat satu hal: <strong>ada seseorang yang selalu senang menemukan namamu di antara ramainya dunia.</strong> ❤️</p>
@@ -307,3 +384,4 @@ function burst(){
 </script>
 </body>
 </html>
+
