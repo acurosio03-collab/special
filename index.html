@@ -53,7 +53,7 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
 .dot{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
 .dot.active{width:24px;border-radius:10px;background:#ff74c5;box-shadow:0 0 12px #ff74c5}
 
-.end{position:absolute;min-width:100vw;width:100vw;height:100vh;left:700vw;top:0;display:grid;place-items:center;padding:70px 7vw;text-align:center}
+.end{position:absolute;min-width:100vw;width:100vw;height:100vh;left:800vw;top:0;display:grid;place-items:center;padding:70px 7vw;text-align:center}
 .endbox{width:min(850px,92vw);padding:clamp(28px,6vw,65px);border:1px solid rgba(255,255,255,.14);border-radius:35px;background:rgba(255,255,255,.05);backdrop-filter:blur(18px);box-shadow:0 30px 100px rgba(0,0,0,.45)}
 .endbox .heart{font-size:42px}
 .endbox h2{font-size:clamp(31px,5vw,56px);line-height:1.1;margin:12px 0}
@@ -62,10 +62,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
 .questions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:left}
 .q{padding:17px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.04)}
 .q b{display:block;color:#ffb6df;margin-bottom:7px}.q span{font-size:12px;color:#d1d3e1;line-height:1.6}
-.final-btn{margin-top:24px;border:0;border-radius:999px;padding:13px 22px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 12px 35px rgba(255,79,174,.25)}
+.tease{color:#ffb9df;font-style:italic;margin:20px auto 0;max-width:680px;line-height:1.7}.final-btn{margin-top:24px;border:0;border-radius:999px;padding:13px 22px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 12px 35px rgba(255,79,174,.25)}
 
-.intro{position:absolute;z-index:10;min-width:100vw;width:100vw;height:100vh;left:0;top:0;display:grid;place-items:center;text-align:center;padding:30px;transition:opacity .8s,transform .8s;pointer-events:none}
-.intro.hide{opacity:0;transform:scale(1.08)}
+.intro{position:relative;min-width:100vw;width:100vw;height:100vh;display:grid;place-items:center;text-align:center;padding:80px 24px;overflow:hidden}
+.intro.hide{opacity:1;transform:none}
 .intro-box{max-width:800px}
 .intro .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 14px;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:#d8d9ec;background:rgba(255,255,255,.05)}
 .intro h1{font-size:clamp(40px,8vw,80px);line-height:.98;letter-spacing:-3px;margin:18px 0;background:linear-gradient(90deg,#fff,#ffb5e2,#a7eaff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
@@ -86,6 +86,30 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
  .endbox{max-height:86vh;overflow:auto}
  .tiny{margin-top:10px}
 }
+
+/* FINAL POLISH: clean typography and spacing */
+.intro-box{position:relative;z-index:3;width:min(760px,92vw)}
+.intro h1{margin:20px auto 16px;max-width:760px}
+.intro p{font-size:15px;max-width:620px}
+.slide-grid{min-height:0}
+.copy{padding:10px 0}
+.copy h2{max-width:560px}
+.copy p{max-width:560px}
+.flirt{max-width:560px}
+@media(max-width:760px){
+  .slide{padding-top:86px;padding-bottom:95px}
+  .slide-grid{gap:14px;align-content:center}
+  .photo-frame{min-height:39vh}
+  .photo-frame img{height:39vh;min-height:260px}
+  .copy{padding:0}
+  .eyebrow{margin-bottom:8px}
+  .copy h2{font-size:31px;line-height:1.08;margin-bottom:10px}
+  .copy p{font-size:13.5px;line-height:1.65}
+  .flirt{font-size:13px;line-height:1.55;margin-top:11px;padding:13px 15px}
+  .tiny{margin-top:9px}
+  .slide-number{top:72px}
+}
+
 </style>
 </head>
 <body>
@@ -94,6 +118,7 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
 <button class="music" id="musicBtn" onclick="toggleMusic()"><span>♫</span> Musik</button>
 <audio id="music" src="musik1.mp3" loop preload="auto"></audio>
 
+<div id="deck">
 <div class="intro" id="intro">
   <div class="intro-box">
     <div class="badge">SEBUAH CERITA YANG HANYA PUNYA SATU TOKOH UTAMA</div>
@@ -102,7 +127,6 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
   </div>
 </div>
 
-<div id="deck">
 
     <article class="slide" data-index="0">
       <div class="stars-panel"></div>
@@ -234,12 +258,16 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
   <div class="endbox">
     <div class="heart">🌙💗✨</div>
     <h2>Sebelum cerita ini selesai...<br><span>boleh aku tanya?</span></h2>
-    <p>Kalau semua halaman tadi adalah caraku bilang bahwa kamu spesial, aku ingin tahu apakah masih ada sedikit ruang untukku di cerita kamu.</p>
+    <p>Kalau semua halaman tadi adalah caraku bilang bahwa kamu spesial, aku ingin tahu apakah masih ada sedikit ruang untukku di cerita kamu. Karena jujur, setelah melihat senyummu, aku mulai curiga... jangan-jangan aku memang sengaja dibuat jatuh hati sama kamu.</p>
     <div class="questions">
       <div class="q"><b>🌷 Kalau aku rindu?</b><span>Boleh nggak aku punya alasan untuk mencari kabarmu tanpa harus menunggu ada alasan?</span></div>
-      <div class="q"><b>🌌 Kalau kita ketemu?</b><span>Menurutmu siapa yang bakal lebih dulu salting—aku, kamu, atau kita berdua?</span></div>
+      <div class="q"><b>🌌 Kalau kita ketemu?</b><span>Menurutmu siapa yang bakal lebih dulu salting—aku, kamu, atau kita berdua? Jangan bilang aku ya... aku sudah salting dari awal. 😳</span></div>
       <div class="q"><b>💫 Kalau besok?</b><span>Maukah kamu masih ada di halaman berikutnya, bukan cuma sebagai cerita, tapi sebagai seseorang yang ingin aku kenal lebih jauh?</span></div>
+      <div class="q"><b>😏 Kalau aku godain?</b><span>Kalau aku bilang senyummu bahaya karena bikin aku lupa mau ngomong apa, kamu mau percaya atau malah senyum lagi?</span></div>
+      <div class="q"><b>💗 Kalau aku pilih kamu?</b><span>Kamu bakal pura-pura nggak tahu, atau diam-diam senang karena ternyata perasaanku ketahuan?</span></div>
+      <div class="q"><b>🫶 Kalau aku serius?</b><span>Kalau aku ingin jadi alasan kamu tersenyum setiap hari, boleh nggak aku mulai dari satu senyuman hari ini?</span></div>
     </div>
+    <p class="tease">“Tapi hati-hati ya... kalau kamu jawab iya, aku bisa jadi makin sering menggombal. Dan kalau kamu senyum setelah membacanya, berarti aku menang satu ronde. 😏💗”</p>
     <button class="final-btn" onclick="finish()">Aku mau lanjut ke cerita berikutnya 💖</button>
   </div>
 </section>
@@ -249,9 +277,8 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
 <div class="progress"><i id="progress"></i></div>
 
 <script>
-const total=8;
+const total=9;
 const deck=document.getElementById('deck');
-const intro=document.getElementById('intro');
 const music=document.getElementById('music');
 const musicBtn=document.getElementById('musicBtn');
 const nav=document.getElementById('nav');
@@ -267,7 +294,7 @@ function go(i){
   deck.style.transform=`translateX(-${index*100}vw)`;
   document.querySelectorAll('.dot').forEach((d,n)=>d.classList.toggle('active',n===index));
   document.getElementById('progress').style.width=((index+1)/total*100)+'%';
-  if(index>0) intro.classList.add('hide'); else intro.classList.remove('hide');
+  
 }
 function next(){if(index<total-1)go(index+1)}
 function prev(){if(index>0)go(index-1)}
