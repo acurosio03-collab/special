@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galaksi Penuh Cinta Untukmu</title>
+    <style>
+        /* Reset dasar agar tampilan konsisten */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Latar Belakang Galaksi */
+        body {
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* Animasi Bintang Kecil */
+        #bintang-bintang {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: bintang-animasi 50s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes bintang-animasi {
+            from { transform: translateY(0); }
+            to { transform: translateY(-550px); }
+        }
+
+        /* Kontainer Utama */
+        .kontainer {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+            perspective: 1000px; /* Untuk efek 3D */
+        }
+
+        /* Hati Berputar */
+        .hati-berputar {
+            position: absolute;
+            font-size: 24px;
+            color: #ff6b6b;
+            opacity: 0.7;
+            animation: putar-hati 10s linear infinite;
+        }
+
+        @keyframes putar-hati {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(var(--x), var(--y)) rotate(360deg); }
+        }
+
+        /* Gambar Kucing */
+        .kucing-lucu {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            animation: goyang-kucing 3s ease-in-out infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes goyang-kucing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Kotak Kado */
+        .kado-kontainer {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+        .kado-kontainer:hover {
+            transform: scale(1.1);
+        }
+        .kotak-kado {
+            width: 150px;
+            height: 150px;
+            background: #e63946;
+            margin: 0 auto;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .pita-vertikal {
+            width: 20px; height: 100%;
+            background: #f1faee;
+            position: absolute;
+            left: 65px; top: 0;
+        }
+        .pita-horizontal {
+            width: 100%; height: 20px;
+            background: #f1faee;
+            position: absolute;
+            left: 0; top: 65px;
+        }
+        .tutup-kado {
+            width: 170px; height: 40px;
+            background: #e63946;
+            position: absolute;
+            left: -10px; top: -40px;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 -5px 10px rgba(0,0,0,0.2);
+        }
+        .pita-tengah {
+            width: 30px; height: 40px;
+            background: #f1faee;
+            position: absolute;
+            left: 70px; top: -40px;
+        }
+        .pesan-awal {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #a8dadc;
+        }
+
+        /* Isi Kado (Tersembunyi Awalnya) */
+        .isi-kado {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            animation: buka-kado 1s forwards;
+        }
+
+        @keyframes buka-kado {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .bunga-dan-hati {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: detak-jantung 1s infinite;
+        }
+        @keyframes detak-jantung {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .kata-gombal {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            max-width: 300px;
+        }
+        .nama-gerdy {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff9ff3;
+            margin-bottom: 20px;
+        }
+        .pertanyaan-menarik {
+            font-size: 22px;
+            color: #feca57;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(254, 202, 87, 0.5);
+        }
+
+        /* Foto Spesial Akhir */
+        .foto-spesial-kontainer {
+            display: none; /* Tersembunyi sampai kado terbuka */
+            flex-direction: column;
+            align-items: center;
+            animation: muncul-foto 1s ease-out;
+        }
+        @keyframes muncul-foto {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .foto-spesial {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        .kata-manis {
+            font-size: 20px;
+            color: #ffcccc;
+            font-style: italic;
+            max-width: 350px;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Latar Belakang Galaksi -->
+    <div id="bintang-bintang"></div>
+
+    <!-- Animasi Hati dan Kucing -->
+    <div id="dekorasi-latar"></div>
+
+    <!-- Kontainer Utama -->
+    <div class="kontainer">
+        
+        <!-- Bagian Kado (Awal) -->
+        <div class="kado-kontainer" onclick="bukaKadoSaya()">
+            <div class="kotak-kado">
+                <div class="pita-vertikal"></div>
+                <div class="pita-horizontal"></div>
+                <div class="tutup-kado"></div>
+                <div class="pita-tengah"></div>
+            </div>
+            <p class="pesan-awal">Psst... Klik kadonya buat kamu! 🎁</p>
+        </div>
+
+        <!-- Isi Kado (Akan Muncul Saat Diklik) -->
+        <div id="isi-kado" class="isi-kado">
+            <div class="bunga-dan-hati">🌹❤️🌹</div>
+            <p class="kata-gombal">"Tau nggak, kenapa aku takut banget kalau dunia ini kiamat?"</p>
+            <p class="kata-gombal">"Soalnya, kalau dunia kiamat, aku nggak bisa lagi liat senyum kamu yang lebih cerah dari galaksi ini."</p>
+            <p class="nama-gerdy">- GERDY -</p>
+            
+            <p class="pertanyaan-menarik">"Kalau kamu jadi satelit, aku siap jadi buminya biar terus ngelilingin kamu. Gimana, mau nggak jadi pusat duniaku?"</p>
+            
+            <!-- Foto Spesial Akhir -->
+            <div class="foto-spesial-kontainer" id="foto-kontainer">
+                <!-- PENTING: Pastikan file foto Anda bernama 'foto_spesial.jpg' dan ada di folder yang sama -->
+                <img src="foto_spesial.jpg" alt="Foto Spesial" class="foto-spesial">
+                <p class="kata-manis">"Dunia mungkin luas, tapi di mataku, cuma kamu yang paling indah."</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Fungsi untuk Menambah Elemen Latar Belakang Secara Acak ---
+        function tambahDekorasi() {
+            const dekorasi = document.getElementById('dekorasi-latar');
+            const simbolHati = ['❤️', '💖', '💙', '💚'];
+            // Ganti path gambar kucing ini dengan path gambar kucing Anda jika ada sendiri
+            const gambarKucing = [
+                'https://cdn-icons-png.flaticon.com/512/616/616408.png', // Kucing 1
+                'https://cdn-icons-png.flaticon.com/512/10212/10212301.png', // Kucing 2
+                'https://cdn-icons-png.flaticon.com/512/10212/10212302.png', // Kucing 3
+                'https://cdn-icons-png.flaticon.com/512/10212/10212303.png'  // Kucing 4
+            ];
+
+            // Tambahkan Hati
+            for (let i = 0; i < 20; i++) {
+                let hati = document.createElement('span');
+                hati.className = 'hati-berputar';
+                hati.innerHTML = simbolHati[Math.floor(Math.random() * simbolHati.length)];
+                hati.style.setProperty('--x', Math.random() * 200 - 100 + 'vw');
+                hati.style.setProperty('--y', Math.random() * 200 - 100 + 'vh');
+                hati.style.left = Math.random() * 100 + 'vw';
+                hati.style.top = Math.random() * 100 + 'vh';
+                hati.style.animationDelay = Math.random() * 5 + 's';
+                dekorasi.appendChild(hati);
+            }
+
+            // Tambahkan Kucing
+            for (let i = 0; i < 5; i++) {
+                let kucing = document.createElement('img');
+                kucing.className = 'kucing-lucu';
+                kucing.src = gambarKucing[Math.floor(Math.random() * gambarKucing.length)];
+                kucing.style.left = Math.random() * 90 + 'vw';
+                kucing.style.top = Math.random() * 90 + 'vh';
+                kucing.style.animationDelay = Math.random() * 3 + 's';
+                dekorasi.appendChild(kucing);
+            }
+        }
+
+        // --- Fungsi Saat Kado Diklik ---
+        function bukaKadoSaya() {
+            // Sembunyikan kotak kado awal
+            document.querySelector('.kado-kontainer').style.display = 'none';
+            
+            // Tampilkan isi kado
+            const isiKado = document.getElementById('isi-kado');
+            isiKado.style.display = 'flex';
+            
+            // Tampilkan foto setelah jeda animasi pembuka
+            setTimeout(() => {
+                document.getElementById('foto-kontainer').style.display = 'flex';
+            }, 1000);
+        }
+
+        // Jalankan fungsi saat halaman dimuat
+        window.onload = tambahDekorasi;
+    </script>
+</body>
+              </html>
