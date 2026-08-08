@@ -1,275 +1,321 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Untuk Kamu — Sebuah Cerita di Antara Bintang</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Untuk Kamu — Our Little Galaxy</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:#02030b;color:#fff;font-family:Inter,"Segoe UI",system-ui,sans-serif;overflow-x:hidden}
-.galaxy,.stars,.stars2,.nebula{position:fixed;inset:0;pointer-events:none}
-.galaxy{background:
-radial-gradient(ellipse at 50% 45%,rgba(123,70,255,.19),transparent 35%),
-radial-gradient(ellipse at 20% 80%,rgba(255,76,191,.12),transparent 30%),
-radial-gradient(ellipse at 85% 20%,rgba(66,218,255,.10),transparent 28%),
-#02030b;z-index:-5}
-.nebula{background:conic-gradient(from 0deg at 50% 50%,transparent,rgba(120,68,255,.07),transparent,rgba(255,74,188,.07),transparent);filter:blur(32px);animation:spin 35s linear infinite;z-index:-4}
-.stars{background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px),radial-gradient(circle,rgba(160,225,255,.8) 0 1px,transparent 1.5px);background-size:83px 91px,157px 151px;background-position:20px 20px,50px 70px;animation:drift 60s linear infinite;z-index:-3}
-.stars2{opacity:.35;background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px);background-size:43px 47px;animation:drift 28s linear infinite reverse;z-index:-2}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes drift{to{transform:translateY(-220px)}}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02030b;color:#fff;font-family:Inter,"Segoe UI",system-ui,sans-serif}
+body{cursor:default}
+#space{position:fixed;inset:0;overflow:hidden;background:
+radial-gradient(ellipse at 50% 50%,rgba(108,71,255,.18),transparent 35%),
+radial-gradient(ellipse at 20% 80%,rgba(255,72,188,.12),transparent 30%),
+radial-gradient(ellipse at 85% 15%,rgba(70,220,255,.10),transparent 28%),
+#02030b}
+#space:before,#space:after{content:"";position:absolute;inset:-40%;background:
+radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1.6px),
+radial-gradient(circle at 70% 60%,rgba(255,255,255,.8) 0 1px,transparent 1.5px);
+background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
+#space:after{opacity:.35;transform:scale(1.2);animation-duration:38s;animation-direction:reverse}
+@keyframes stars{to{transform:translate3d(-100px,120px,0) rotate(2deg)}}
 
-.progress{position:fixed;z-index:20;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#ff5bb9,#9c75ff,#68eaff);box-shadow:0 0 15px #ff6fc4}
-.top-nav{position:fixed;z-index:19;top:18px;left:50%;transform:translateX(-50%);padding:8px 14px;border:1px solid rgba(255,255,255,.13);border-radius:999px;background:rgba(5,6,20,.55);backdrop-filter:blur(15px);font-size:11px;letter-spacing:2px;color:#cfd1e6}
+.nebula{position:absolute;inset:-20%;background:conic-gradient(from 30deg at 50% 50%,transparent 0 18%,rgba(143,85,255,.08) 24%,transparent 35%,rgba(255,70,190,.07) 49%,transparent 64%,rgba(74,221,255,.07) 77%,transparent 88%);filter:blur(40px);animation:nebula 35s linear infinite}
+@keyframes nebula{to{transform:rotate(360deg)}}
+.progress{position:fixed;z-index:30;left:4vw;right:4vw;bottom:22px;height:3px;border-radius:9px;background:rgba(255,255,255,.1)}
+.progress i{display:block;height:100%;width:14.28%;border-radius:9px;background:linear-gradient(90deg,#ff54b5,#a378ff,#69eaff);box-shadow:0 0 14px #ff64c0;transition:.5s}
+.brand{position:fixed;z-index:30;top:18px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:3px;color:#d9dbef;border:1px solid rgba(255,255,255,.12);padding:8px 14px;border-radius:999px;background:rgba(4,5,18,.5);backdrop-filter:blur(15px);white-space:nowrap}
+.music{position:fixed;z-index:31;right:18px;top:16px;border:1px solid rgba(255,255,255,.14);background:rgba(5,6,20,.58);color:#fff;border-radius:999px;padding:9px 13px;font-size:11px;backdrop-filter:blur(15px);cursor:pointer}
+.music span{display:inline-block;margin-right:5px;animation:pulse 1s infinite}
+@keyframes pulse{50%{transform:scale(1.25)}}
 
-.intro{min-height:100vh;display:grid;place-items:center;text-align:center;padding:70px 20px;position:relative}
-.intro-box{max-width:850px}
-.badge{display:inline-block;padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);color:#d9d7ff;font-size:11px;letter-spacing:3px;margin-bottom:22px}
-h1{font-size:clamp(40px,8vw,82px);line-height:.98;letter-spacing:-3px;background:linear-gradient(90deg,#fff,#ffb7e4,#a9eaff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
-@keyframes shine{to{background-position:250%}}
-.intro p{max-width:650px;margin:20px auto;color:#aeb2d0;line-height:1.8;font-size:15px}
-.start{display:inline-flex;margin-top:20px;padding:13px 21px;border-radius:999px;color:#fff;text-decoration:none;background:linear-gradient(90deg,#ff4fae,#8b69ff);box-shadow:0 12px 35px rgba(255,79,174,.22)}
+#deck{position:fixed;inset:0;display:flex;width:100vw;height:100vh;transition:transform .8s cubic-bezier(.77,0,.18,1);will-change:transform}
+.slide{position:relative;min-width:100vw;width:100vw;height:100vh;display:grid;place-items:center;padding:70px 7vw;overflow:hidden}
+.stars-panel{position:absolute;inset:0;background:radial-gradient(circle at 30% 45%,rgba(255,255,255,.08) 0 1px,transparent 1.5px),radial-gradient(circle at 75% 20%,rgba(112,222,255,.5) 0 1px,transparent 1.5px);background-size:100px 100px,170px 170px;opacity:.45}
+.slide-grid{position:relative;z-index:2;width:min(1120px,90vw);display:grid;grid-template-columns:1fr 1fr;gap:clamp(35px,7vw,100px);align-items:center}
+.slide:nth-child(odd) .photo-frame{order:1}.slide:nth-child(odd) .copy{order:2}
+.slide:nth-child(even) .photo-frame{order:2}.slide:nth-child(even) .copy{order:1}
+.photo-frame{position:relative;display:grid;place-items:center;min-height:65vh}
+.photo-frame img{position:relative;z-index:3;width:min(460px,42vw);height:min(570px,65vh);object-fit:cover;border-radius:30px;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 100px rgba(0,0,0,.6),0 0 70px rgba(130,80,255,.13);animation:photoFloat 5s ease-in-out infinite}
+@keyframes photoFloat{50%{transform:translateY(-8px) rotate(.4deg)}}
+.orbit{position:absolute;border:1px solid rgba(177,128,255,.22);border-radius:50%;transform:rotate(-25deg)}
+.orbit-a{width:120%;height:55%;animation:orbit 12s linear infinite}
+.orbit-b{width:105%;height:70%;border-color:rgba(93,224,255,.14);animation:orbit 17s linear infinite reverse}
+@keyframes orbit{to{transform:rotate(335deg)}}
+.slide-number{position:absolute;z-index:4;top:80px;left:7vw;color:#6e7598;font-size:10px;letter-spacing:3px}
+.copy{max-width:560px}
+.eyebrow{font-size:10px;letter-spacing:3px;color:#78e5ff;margin-bottom:14px}
+.copy h2{font-size:clamp(32px,5vw,62px);line-height:1.02;letter-spacing:-2px;margin:0 0 20px;background:linear-gradient(90deg,#fff,#ffb8e5,#b4eaff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.copy p{font-size:clamp(15px,1.5vw,18px);line-height:1.9;color:#d5d7e8;margin:0}
+.flirt{margin-top:25px;padding:19px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(255,91,190,.11),rgba(115,91,255,.08));border:1px solid rgba(255,255,255,.1);color:#ffc1e6;line-height:1.7;font-size:15px;box-shadow:0 15px 45px rgba(0,0,0,.2)}
+.tiny{margin-top:22px;color:#777d9f;font-size:10px;letter-spacing:1.5px}
+.nav{position:fixed;z-index:30;bottom:43px;left:50%;transform:translateX(-50%);display:flex;gap:9px}
+.dot{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
+.dot.active{width:24px;border-radius:10px;background:#ff74c5;box-shadow:0 0 12px #ff74c5}
 
-.story-page{min-height:100vh;display:grid;place-items:center;padding:80px 5vw;position:relative}
-.story-inner{width:min(1120px,94vw);display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,6vw,80px);align-items:center}
-.story-page:nth-of-type(even) .story-photo-wrap{order:2}
-.story-page:nth-of-type(even) .story-copy{order:1}
-.story-photo-wrap{position:relative}
-.story-photo-wrap:before{content:"";position:absolute;inset:-18px;border-radius:35px;background:radial-gradient(circle,rgba(255,87,191,.18),transparent 68%);filter:blur(12px)}
-.story-photo{position:relative;width:100%;height:min(67vh,620px);object-fit:cover;border-radius:28px;border:1px solid rgba(255,255,255,.18);padding:8px;background:rgba(255,255,255,.035);box-shadow:0 30px 80px rgba(0,0,0,.55);display:block}
-.chapter{position:absolute;z-index:3;left:22px;top:22px;padding:7px 11px;border-radius:999px;background:rgba(3,4,15,.72);border:1px solid rgba(255,255,255,.15);font-size:10px;letter-spacing:2px;backdrop-filter:blur(10px)}
-.story-copy{position:relative}
-.mini{font-size:11px;letter-spacing:3px;color:#75e5ff;margin-bottom:14px}
-.story-copy h2{font-size:clamp(30px,4.5vw,58px);line-height:1.05;margin-bottom:20px}
-.story-copy p{color:#d6d7e8;font-size:clamp(15px,1.6vw,18px);line-height:1.9;max-width:570px}
-.flirt{margin-top:24px;padding:20px 22px;border-radius:20px;background:linear-gradient(135deg,rgba(255,98,192,.10),rgba(111,105,255,.08));border:1px solid rgba(255,255,255,.1);color:#ffc0e5;font-size:16px;line-height:1.7;box-shadow:0 15px 45px rgba(0,0,0,.2)}
-.page-number{margin-top:22px;color:#777c9d;font-size:11px;letter-spacing:3px}
-.scroll-hint{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);font-size:11px;color:#747a9c;letter-spacing:1px;animation:breathe 2s infinite}
-@keyframes breathe{50%{opacity:.35;transform:translate(-50%,5px)}}
+.end{position:absolute;min-width:100vw;width:100vw;height:100vh;left:700vw;top:0;display:grid;place-items:center;padding:70px 7vw;text-align:center}
+.endbox{width:min(850px,92vw);padding:clamp(28px,6vw,65px);border:1px solid rgba(255,255,255,.14);border-radius:35px;background:rgba(255,255,255,.05);backdrop-filter:blur(18px);box-shadow:0 30px 100px rgba(0,0,0,.45)}
+.endbox .heart{font-size:42px}
+.endbox h2{font-size:clamp(31px,5vw,56px);line-height:1.1;margin:12px 0}
+.endbox h2 span{color:#ff9fdc}
+.endbox p{color:#b8bad0;line-height:1.8;max-width:690px;margin:0 auto 22px}
+.questions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:left}
+.q{padding:17px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.04)}
+.q b{display:block;color:#ffb6df;margin-bottom:7px}.q span{font-size:12px;color:#d1d3e1;line-height:1.6}
+.final-btn{margin-top:24px;border:0;border-radius:999px;padding:13px 22px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 12px 35px rgba(255,79,174,.25)}
 
-.question-page{min-height:100vh;display:grid;place-items:center;padding:80px 20px;text-align:center}
-.question-box{width:min(900px,94vw);padding:clamp(28px,6vw,60px);border:1px solid rgba(255,255,255,.13);border-radius:35px;background:rgba(255,255,255,.045);backdrop-filter:blur(18px);box-shadow:0 30px 100px rgba(0,0,0,.4)}
-.question-box .emoji{font-size:42px;margin-bottom:15px}
-.question-box h2{font-size:clamp(30px,5vw,54px);line-height:1.1}
-.question-box h2 span{color:#ff9edb}
-.question-box p{max-width:680px;margin:18px auto;color:#afb3d0;line-height:1.8}
-.questions{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:25px;text-align:left}
-.q{padding:19px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09)}
-.q b{display:block;color:#ffb4df;margin-bottom:8px}
-.q span{color:#d3d5e5;font-size:13px;line-height:1.6}
-.btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:25px}
-button{border:0;border-radius:999px;padding:13px 21px;color:#fff;font-weight:700;cursor:pointer;background:linear-gradient(90deg,#ff4fae,#8b69ff);box-shadow:0 10px 30px rgba(255,79,174,.2)}
-button.alt{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);box-shadow:none}
-.final{display:none;margin-top:30px;padding-top:30px;border-top:1px solid rgba(255,255,255,.1);animation:appear .8s ease}
-.final.show{display:block}
-.final h3{font-size:28px}
-.final p{margin-top:12px!important}
-@keyframes appear{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-footer{padding:50px 20px 80px;text-align:center;color:#777c9d;font-size:12px;line-height:1.7}
+.intro{position:absolute;z-index:10;min-width:100vw;width:100vw;height:100vh;left:0;top:0;display:grid;place-items:center;text-align:center;padding:30px;transition:opacity .8s,transform .8s;pointer-events:none}
+.intro.hide{opacity:0;transform:scale(1.08)}
+.intro-box{max-width:800px}
+.intro .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 14px;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:#d8d9ec;background:rgba(255,255,255,.05)}
+.intro h1{font-size:clamp(40px,8vw,80px);line-height:.98;letter-spacing:-3px;margin:18px 0;background:linear-gradient(90deg,#fff,#ffb5e2,#a7eaff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+.intro p{color:#aeb2d0;line-height:1.8;max-width:650px;margin:auto}
 
 @media(max-width:760px){
- .story-page{padding:80px 18px;min-height:auto;padding-top:100px;padding-bottom:100px}
- .story-inner{grid-template-columns:1fr;gap:28px}
- .story-page:nth-of-type(even) .story-photo-wrap,.story-page:nth-of-type(even) .story-copy{order:initial}
- .story-photo{height:60vh;min-height:380px}
+ .slide{padding:80px 22px 100px}
+ .slide-grid{grid-template-columns:1fr;gap:20px;width:92vw}
+ .slide:nth-child(odd) .photo-frame,.slide:nth-child(even) .photo-frame{order:1}
+ .slide:nth-child(odd) .copy,.slide:nth-child(even) .copy{order:2}
+ .photo-frame{min-height:42vh}
+ .photo-frame img{width:min(70vw,330px);height:42vh;min-height:300px}
+ .copy h2{font-size:34px;letter-spacing:-1px}
+ .copy p{font-size:14px;line-height:1.7}
+ .flirt{font-size:13px;margin-top:15px;padding:15px}
  .questions{grid-template-columns:1fr}
- .top-nav{font-size:9px}
+ .end{padding:75px 20px 100px}
+ .endbox{max-height:86vh;overflow:auto}
+ .tiny{margin-top:10px}
 }
 </style>
 </head>
 <body>
-<div class="galaxy"></div><div class="nebula"></div><div class="stars"></div><div class="stars2"></div>
-<div class="progress" id="progress"></div>
-<div class="top-nav">✦ A STORY WRITTEN FOR YOU ✦</div>
+<div id="space"><div class="nebula"></div></div>
+<div class="brand">✦ OUR LITTLE GALAXY ✦</div>
+<button class="music" id="musicBtn" onclick="toggleMusic()"><span>♫</span> Musik</button>
+<audio id="music" src="musik1.mp3" loop preload="auto"></audio>
 
-<section class="intro">
+<div class="intro" id="intro">
   <div class="intro-box">
-    <div class="badge">SEBUAH CERITA YANG BELUM SELESAI</div>
+    <div class="badge">SEBUAH CERITA YANG HANYA PUNYA SATU TOKOH UTAMA</div>
     <h1>Untuk Kamu,<br>yang Diam-Diam Jadi Favoritku.</h1>
-    <p>Ini bukan cuma halaman berisi foto. Ini perjalanan kecil—satu foto, satu cerita, satu gombalan, dan satu alasan lagi kenapa aku selalu senang menemukan kamu.</p>
-    <a class="start" href="#page1">Mulai ceritanya ✨</a>
+    <p>Geser ke samping. Jangan buru-buru. Setiap halaman punya satu foto, satu cerita, dan satu alasan kenapa kamu begitu sulit untuk tidak disukai. 💗</p>
   </div>
-</section>
+</div>
 
+<div id="deck">
 
-    <section class="story-page" id="page1">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 01</span>
-          <img class="story-photo" src="IMG-20260626-WA0073.jpg" alt="Kenangan halaman 1" loading="lazy">
+    <article class="slide" data-index="0">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 01 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="IMG-20260626-WA0073.jpg" alt="Kenangan 1">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
           <h2>Pertama Kali Aku Menyadari</h2>
-          <p>Kadang ada seseorang yang datang tanpa suara, tapi perlahan membuat suasana jadi berbeda. Entah sejak kapan, setiap kali melihatmu, ada bagian kecil dari hariku yang terasa lebih ringan. Mungkin kamu tidak sadar, tapi senyummu punya cara aneh untuk membuat hari biasa terasa sedikit lebih istimewa.</p>
-          <div class="flirt">“Kalau senyum kamu adalah matahari, aku rela jadi bumi yang setiap hari muter-muter cuma supaya tetap bisa melihatnya. ☀️💗”</div>
-          <div class="page-number">01 / 7</div>
+          <p>Kadang seseorang datang tanpa suara, lalu entah bagaimana membuat hari biasa terasa berbeda. Aku tidak tahu tepatnya kapan, tapi sejak mengenalmu, ada bagian kecil dari hariku yang selalu mencari keberadaanmu.</p>
+          <div class="flirt">“Kalau senyum kamu adalah matahari, aku rela jadi bumi yang setiap hari berputar cuma supaya tetap bisa melihatnya. ☀️💗”</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-    <section class="story-page" id="page2">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 02</span>
-          <img class="story-photo" src="IMG-20260627-WA0044.jpg" alt="Kenangan halaman 2" loading="lazy">
+    <article class="slide" data-index="1">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 02 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="IMG-20260627-WA0044.jpg" alt="Kenangan 2">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
           <h2>Ada Hal yang Tidak Bisa Dijelaskan</h2>
-          <p>Aku pernah mencoba mencari alasan kenapa aku nyaman melihatmu. Tapi semakin dicari, semakin tidak ketemu. Mungkin memang beberapa rasa tidak diciptakan untuk dijelaskan. Mereka cukup dirasakan—pelan-pelan, tanpa perlu terburu-buru diberi nama.</p>
-          <div class="flirt">“Katanya hati punya logikanya sendiri. Pantas saja logikaku selalu gagal kalau urusannya kamu. 🥺✨”</div>
-          <div class="page-number">02 / 7</div>
+          <p>Aku pernah mencoba mencari alasan kenapa aku nyaman melihatmu. Tapi semakin dicari, semakin tidak ketemu. Mungkin memang ada rasa yang tidak perlu dijelaskan—cukup dirasakan, pelan-pelan, tanpa dipaksa.</p>
+          <div class="flirt">“Katanya hati punya logikanya sendiri. Pantas saja logikaku selalu error kalau urusannya kamu. 🥺✨”</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-    <section class="story-page" id="page3">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 03</span>
-          <img class="story-photo" src="IMG-20260627-WA0053.jpg" alt="Kenangan halaman 3" loading="lazy">
+    <article class="slide" data-index="2">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 03 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="IMG-20260627-WA0053.jpg" alt="Kenangan 3">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Kalau Kamu Tahu...</h2>
-          <p>Ada hal kecil yang mungkin tidak pernah kamu lihat. Namamu kadang muncul begitu saja di pikiranku ketika aku sedang sibuk. Bukan karena aku sengaja memikirkannya, tapi karena ternyata kamu sudah punya tempat sendiri di kepalaku.</p>
-          <div class="flirt">“Kalau pikiran punya rumah, mungkin namamu sudah punya kamar sendiri. Dan lucunya, aku nggak pernah berniat mengusirmu. 🏡💞”</div>
-          <div class="page-number">03 / 7</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+          <h2>Namamu Sering Muncul</h2>
+          <p>Ada hal kecil yang mungkin tidak pernah kamu sadari. Namamu kadang muncul begitu saja di pikiranku ketika aku sedang sibuk. Bukan karena sengaja, tapi karena ternyata kamu sudah punya tempat sendiri di sana.</p>
+          <div class="flirt">“Kalau pikiranku punya rumah, mungkin namamu sudah punya kamar sendiri. Dan tenang, sewanya gratis selamanya. 🏡💞”</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-    <section class="story-page" id="page4">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 04</span>
-          <img class="story-photo" src="IMG-20260629-WA0109.jpg" alt="Kenangan halaman 4" loading="lazy">
+    <article class="slide" data-index="3">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 04 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="IMG-20260629-WA0109.jpg" alt="Kenangan 4">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
           <h2>Tentang Rindu yang Sederhana</h2>
-          <p>Aku tidak selalu ingin percakapan panjang. Kadang aku hanya ingin tahu kamu baik-baik saja. Kadang satu pesan singkat darimu sudah cukup untuk membuat hari terasa tidak terlalu berat. Sesederhana itu ternyata rasa nyaman bekerja.</p>
+          <p>Aku tidak selalu ingin percakapan panjang. Kadang aku cuma ingin tahu kamu baik-baik saja. Satu pesan kecil darimu saja sudah cukup membuat hari terasa lebih ringan.</p>
           <div class="flirt">“Aku nggak butuh chat 24 jam. Cukup satu &#x27;jangan lupa makan&#x27; darimu, hati ini sudah merasa diperhatikan semesta. 🌙”</div>
-          <div class="page-number">04 / 7</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-    <section class="story-page" id="page5">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 05</span>
-          <img class="story-photo" src="IMG-20260629-WA0114.jpg" alt="Kenangan halaman 5" loading="lazy">
+    <article class="slide" data-index="4">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 05 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="IMG-20260629-WA0114.jpg" alt="Kenangan 5">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
           <h2>Kalau Kita Berjalan Bersama</h2>
-          <p>Aku tidak tahu cerita seperti apa yang akan kita punya. Mungkin akan ada hari yang ramai, ada hari yang sepi, ada tawa yang tidak berhenti, bahkan mungkin ada salah paham. Tapi kalau boleh memilih, aku ingin tetap berjalan pelan-pelan bersamamu, bukan karena semuanya akan selalu sempurna, tapi karena kamu membuat perjalanan terasa layak.</p>
+          <p>Aku tidak tahu cerita seperti apa yang akan kita punya. Mungkin ada hari yang ramai, ada hari yang sepi, bahkan ada salah paham. Tapi kalau boleh memilih, aku ingin tetap berjalan pelan-pelan bersamamu.</p>
           <div class="flirt">“Aku nggak janji jalan kita selalu mulus. Tapi kalau kamu mau, aku bisa jadi orang yang tetap jalan di sampingmu ketika jalannya mulai berliku. 🤍”</div>
-          <div class="page-number">05 / 7</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-    <section class="story-page" id="page6">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 06</span>
-          <img class="story-photo" src="Screenshot_20260627-121344.png" alt="Kenangan halaman 6" loading="lazy">
+    <article class="slide" data-index="5">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 06 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="Screenshot_20260627-121344.png" alt="Kenangan 6">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
           <h2>Kamu dan Semesta</h2>
-          <p>Kalau semesta punya miliaran bintang, aku selalu heran kenapa mataku justru memilih satu. Mungkin bukan karena kamu paling terang. Mungkin karena entah bagaimana, cahayamu terasa paling dekat dengan hati.</p>
+          <p>Kalau semesta punya miliaran bintang, aku selalu heran kenapa mataku justru memilih satu. Mungkin bukan karena kamu paling terang, tapi karena cahayamu terasa paling dekat dengan hati.</p>
           <div class="flirt">“Aku nggak perlu teleskop untuk mencari bintang paling indah. Soalnya, bintangnya sedang membaca halaman ini. 🌌💫”</div>
-          <div class="page-number">06 / 7</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-    <section class="story-page" id="page7">
-      <div class="page-glow"></div>
-      <div class="story-inner">
-        <div class="story-photo-wrap">
-          <span class="chapter">BAB 07</span>
-          <img class="story-photo" src="Screenshot_20260627-121451.png" alt="Kenangan halaman 7" loading="lazy">
+    <article class="slide" data-index="6">
+      <div class="stars-panel"></div>
+      <div class="slide-number">BAB 07 / 7</div>
+      <div class="slide-grid">
+        <div class="photo-frame">
+          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+          <img src="Screenshot_20260627-121451.png" alt="Kenangan 7">
         </div>
-        <div class="story-copy">
-          <div class="mini">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
+        <div class="copy">
+          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
           <h2>Satu Pertanyaan Kecil</h2>
-          <p>Setelah semua kata ini, sebenarnya aku cuma ingin bertanya sesuatu yang sederhana. Kalau suatu hari aku datang bukan sekadar untuk bercerita, tapi untuk benar-benar tinggal dalam ceritamu, apakah masih ada sedikit ruang untukku?</p>
+          <p>Setelah semua kata ini, sebenarnya aku cuma ingin bertanya sederhana. Kalau suatu hari aku datang bukan sekadar untuk bercerita, tapi untuk benar-benar tinggal dalam ceritamu, apakah masih ada sedikit ruang untukku?</p>
           <div class="flirt">“Kalau hatimu adalah rumah, aku nggak minta kamar paling besar. Sudut kecil dekat jendela pun aku sudah bahagia. 🪟❤️”</div>
-          <div class="page-number">07 / 7</div>
+          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
         </div>
       </div>
-      <div class="scroll-hint">Geser ke bawah untuk lanjut ↓</div>
-    </section>
+    </article>
     
-
-<section class="question-page">
-  <div class="question-box">
-    <div class="emoji">🌙💗✨</div>
-    <h2>Sebelum kamu pergi...<br><span>boleh aku tanya sesuatu?</span></h2>
-    <p>Setelah sejauh ini kamu membaca ceritaku, aku cuma ingin tahu satu hal. Kalau semua ini adalah awal dari sebuah cerita, kira-kira kamu mau nggak ikut menulis halaman berikutnya bersamaku?</p>
+<section class="end">
+  <div class="endbox">
+    <div class="heart">🌙💗✨</div>
+    <h2>Sebelum cerita ini selesai...<br><span>boleh aku tanya?</span></h2>
+    <p>Kalau semua halaman tadi adalah caraku bilang bahwa kamu spesial, aku ingin tahu apakah masih ada sedikit ruang untukku di cerita kamu.</p>
     <div class="questions">
       <div class="q"><b>🌷 Kalau aku rindu?</b><span>Boleh nggak aku punya alasan untuk mencari kabarmu tanpa harus menunggu ada alasan?</span></div>
-      <div class="q"><b>🌌 Kalau kita bertemu?</b><span>Menurutmu, siapa yang bakal lebih dulu salah tingkah—aku, kamu, atau kita berdua?</span></div>
-      <div class="q"><b>💫 Kalau besok?</b><span>Maukah kamu masih ada di sini, bukan cuma sebagai cerita, tapi sebagai seseorang yang ingin aku kenal lebih jauh?</span></div>
+      <div class="q"><b>🌌 Kalau kita ketemu?</b><span>Menurutmu siapa yang bakal lebih dulu salting—aku, kamu, atau kita berdua?</span></div>
+      <div class="q"><b>💫 Kalau besok?</b><span>Maukah kamu masih ada di halaman berikutnya, bukan cuma sebagai cerita, tapi sebagai seseorang yang ingin aku kenal lebih jauh?</span></div>
     </div>
-    <div class="btns">
-      <button onclick="yes()">Aku mau lanjut 💖</button>
-      <button class="alt" onclick="yes()">Bikin aku salting dulu ✨</button>
-    </div>
-    <div class="final" id="final">
-      <h3>Kalau begitu... kita lanjut ke halaman berikutnya. 🥺❤️</h3>
-      <p>Semoga halaman ini bukan menjadi akhir. Karena kalau aku boleh memilih, aku ingin cerita tentang kamu punya banyak halaman—dan kalau boleh lebih jujur lagi, aku ingin ada di dalamnya.</p>
-      <p><strong>Semesta boleh luas, tapi semoga langkah kita tetap menemukan jalan yang sama. 🌌</strong></p>
-    </div>
+    <button class="final-btn" onclick="finish()">Aku mau lanjut ke cerita berikutnya 💖</button>
   </div>
 </section>
-<footer>
-  Dibuat dengan sedikit kode, banyak kenangan, dan perasaan yang mungkin lebih banyak dari yang seharusnya. 💗<br>
-  — GERDY —
-</footer>
+</div>
+
+<div class="nav" id="nav"></div>
+<div class="progress"><i id="progress"></i></div>
 
 <script>
-const bar=document.getElementById('progress');
-window.addEventListener('scroll',()=>{
-  const max=document.documentElement.scrollHeight-innerHeight;
-  bar.style.width=(scrollY/max*100)+'%';
-});
-function yes(){
-  document.getElementById('final').classList.add('show');
-  for(let i=0;i<28;i++){
-    const e=document.createElement('span');
-    e.textContent=['💖','✨','💫','🌹','⭐','💕'][Math.floor(Math.random()*6)];
-    e.style.position='fixed';e.style.left='50%';e.style.top='55%';e.style.zIndex=99;e.style.pointerEvents='none';
-    const x=(Math.random()*2-1)*48,y=(Math.random()*2-1)*45;
-    e.animate([{transform:'translate(-50%,-50%) scale(.5)',opacity:1},{transform:`translate(calc(-50% + ${x}vw),calc(-50% + ${y}vh)) scale(1.3)`,opacity:0}],{duration:1100+Math.random()*700,easing:'cubic-bezier(.2,.8,.2,1)'});
-    document.body.appendChild(e);setTimeout(()=>e.remove(),1900);
-  }
-  document.getElementById('final').scrollIntoView({behavior:'smooth',block:'center'});
+const total=8;
+const deck=document.getElementById('deck');
+const intro=document.getElementById('intro');
+const music=document.getElementById('music');
+const musicBtn=document.getElementById('musicBtn');
+const nav=document.getElementById('nav');
+let index=0;
+let startX=0,startY=0,dragging=false;
+
+for(let i=0;i<total;i++){
+  const b=document.createElement('button');b.className='dot'+(i===0?' active':'');
+  b.onclick=()=>go(i);nav.appendChild(b);
 }
+function go(i){
+  index=Math.max(0,Math.min(total-1,i));
+  deck.style.transform=`translateX(-${index*100}vw)`;
+  document.querySelectorAll('.dot').forEach((d,n)=>d.classList.toggle('active',n===index));
+  document.getElementById('progress').style.width=((index+1)/total*100)+'%';
+  if(index>0) intro.classList.add('hide'); else intro.classList.remove('hide');
+}
+function next(){if(index<total-1)go(index+1)}
+function prev(){if(index>0)go(index-1)}
+
+window.addEventListener('wheel',e=>{
+  if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.deltaX>0?next():prev()}
+  else{e.deltaY>0?next():prev()}
+},{passive:true});
+
+window.addEventListener('keydown',e=>{
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
+});
+
+window.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY;dragging=true},{passive:true});
+window.addEventListener('touchend',e=>{
+  if(!dragging)return;dragging=false;
+  const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
+  if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)) dx<0?next():prev();
+},{passive:true});
+
+function tryMusic(){
+  music.volume=.48;
+  const p=music.play();
+  if(p) p.then(()=>{musicBtn.innerHTML='<span>♫</span> Musik ON'}).catch(()=>{
+    // Browser autoplay policy may block sound until the first interaction.
+    musicBtn.innerHTML='<span>♫</span> Klik untuk musik';
+  });
+}
+function toggleMusic(){
+  if(music.paused){music.play();musicBtn.innerHTML='<span>♫</span> Musik ON'}
+  else{music.pause();musicBtn.innerHTML='<span>♫</span> Musik OFF'}
+}
+// Try immediately when the page opens. If the browser blocks autoplay,
+// the first tap/click anywhere will start it automatically.
+window.addEventListener('load',()=>setTimeout(tryMusic,250));
+window.addEventListener('pointerdown',()=>{if(music.paused)tryMusic()},{once:true});
+
+function finish(){
+  for(let i=0;i<35;i++){
+    const e=document.createElement('span');e.textContent=['💖','✨','💫','🌹','⭐','💕'][Math.floor(Math.random()*6)];
+    e.style.position='fixed';e.style.left='50%';e.style.top='50%';e.style.zIndex=99;e.style.pointerEvents='none';e.style.fontSize=(14+Math.random()*17)+'px';
+    const x=(Math.random()*2-1)*48,y=(Math.random()*2-1)*45;
+    e.animate([{transform:'translate(-50%,-50%) scale(.4)',opacity:1},{transform:`translate(calc(-50% + ${x}vw),calc(-50% + ${y}vh)) scale(1.3)`,opacity:0}],{duration:1000+Math.random()*900,easing:'cubic-bezier(.2,.8,.2,1)'});
+    document.body.appendChild(e);setTimeout(()=>e.remove(),2000);
+  }
+}
+go(0);
 </script>
 </body>
 </html>
