@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 <title>Untuk Ara — Our Little Galaxy 💐</title>
 <style>
 *{box-sizing:border-box}
@@ -164,23 +166,131 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
 .photo-placeholder .ph-icon{font-size:46px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.35))}
 .photo-placeholder .ph-label{font-size:11px;letter-spacing:2px;color:#b9bcd8;text-transform:uppercase;padding:0 20px;line-height:1.6}
 @media(max-width:760px){.photo-placeholder{width:min(70vw,330px);height:42vh;min-height:300px}}
+/* ===== TATA SURYA: matahari, bulan, jupiter, dkk di latar galaxy ===== */
+.celestial{position:absolute;border-radius:50%;pointer-events:none}
+.c-sun{width:150px;height:150px;top:-40px;right:-30px;
+background:radial-gradient(circle at 35% 35%,#fff6d8,#ffcf5e 45%,#ff9d4d 75%,#ff6a3d 100%);
+box-shadow:0 0 90px 25px rgba(255,170,90,.45),0 0 200px 90px rgba(255,120,90,.18);
+animation:driftA 26s ease-in-out infinite}
+.c-moon{width:78px;height:78px;left:6%;top:14%;
+background:radial-gradient(circle at 38% 32%,#fdfdf5,#d9dbe6 55%,#aeb1c4 100%);
+box-shadow:inset -10px -8px 18px rgba(0,0,0,.25),0 0 35px rgba(220,225,255,.25);
+animation:driftB 20s ease-in-out infinite}
+.c-moon:before,.c-moon:after{content:"";position:absolute;border-radius:50%;background:rgba(120,120,140,.28)}
+.c-moon:before{width:16px;height:16px;top:18px;left:14px}
+.c-moon:after{width:10px;height:10px;top:42px;left:38px}
+.c-jupiter{width:190px;height:190px;left:-70px;bottom:6%;border-radius:50%;overflow:hidden;
+background:repeating-linear-gradient(0deg,#e0b98c 0 10px,#c99568 10px 20px,#e7c9a0 20px 32px,#b8895c 32px 42px);
+box-shadow:0 0 70px rgba(220,170,120,.25),inset 12px 0 40px rgba(0,0,0,.35);
+animation:driftC 30s ease-in-out infinite,spinSlow 90s linear infinite}
+.c-jupiter .spot{position:absolute;width:34px;height:22px;border-radius:50%;background:rgba(180,90,60,.55);top:60%;left:55%;filter:blur(1px)}
+.c-saturn-wrap{position:absolute;right:6%;bottom:16%;width:120px;height:120px;transform:rotate(-18deg);animation:driftD 24s ease-in-out infinite}
+.c-saturn{position:absolute;width:70px;height:70px;left:25px;top:25px;border-radius:50%;
+background:radial-gradient(circle at 35% 32%,#ffe9c2,#e3b57c 60%,#b98a54 100%)}
+.c-saturn-ring{position:absolute;left:0;top:44px;width:120px;height:30px;border-radius:50%;
+border:7px solid rgba(230,210,180,.55);box-shadow:0 0 12px rgba(230,210,180,.25)}
+.c-mars{width:46px;height:46px;right:14%;top:10%;
+background:radial-gradient(circle at 35% 32%,#ff9a7a,#d9583a 65%,#a83f28 100%);
+box-shadow:0 0 25px rgba(220,90,60,.35);animation:driftA 22s ease-in-out infinite reverse}
+@keyframes driftA{50%{transform:translateY(22px)}}
+@keyframes driftB{50%{transform:translateY(-18px) translateX(8px)}}
+@keyframes driftC{50%{transform:translateY(-14px)}}
+@keyframes driftD{50%{transform:translateY(16px) rotate(-14deg)}}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+@media(max-width:760px){
+  .c-sun{width:100px;height:100px}
+  .c-moon{width:56px;height:56px}
+  .c-jupiter{width:130px;height:130px}
+  .c-saturn-wrap{width:90px;height:90px;transform:scale(.8) rotate(-18deg)}
+  .c-mars{width:34px;height:34px}
+}
+
+/* ===== COVER GATE: bunga jadi portal ===== */
+#coverGate{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;
+background:radial-gradient(ellipse at 50% 50%,rgba(255,120,190,.22),transparent 60%),radial-gradient(ellipse at 20% 85%,rgba(140,90,255,.16),transparent 55%),#02030b;
+overflow:hidden;transition:opacity .7s ease}
+#coverGate.portal-out{animation:portalSuck .85s cubic-bezier(.6,0,.9,.3) forwards}
+@keyframes portalSuck{to{opacity:0;transform:scale(.2) rotate(35deg)}}
+.portal-ring{position:absolute;width:min(78vw,560px);height:min(78vw,560px);border-radius:50%;
+background:conic-gradient(from 0deg,#ff62c1,#a17bff,#5fd7ff,#ff62c1);
+filter:blur(2px);opacity:.35;animation:spinSlow 14s linear infinite}
+.portal-ring:before{content:"";position:absolute;inset:14px;border-radius:50%;background:#02030b}
+.flower-field{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.flower-field span{position:absolute;top:-12%;animation:flowerFall linear infinite;will-change:transform,opacity}
+@keyframes flowerFall{0%{transform:translateY(0) rotate(0deg);opacity:0}8%{opacity:.95}90%{opacity:.85}100%{transform:translateY(118vh) rotate(340deg);opacity:0}}
+.cover-card{position:relative;z-index:2;text-align:center;max-width:540px;padding:0 26px}
+.cover-card .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 16px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#ffd7ec;background:rgba(255,255,255,.06);backdrop-filter:blur(10px)}
+.cover-card h1{font-size:clamp(32px,7.5vw,56px);line-height:1.08;letter-spacing:-2px;margin:20px 0 14px;background:linear-gradient(90deg,#fff,#ffb8e5,#e3c4ff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+.cover-card p{color:#dcdcef;line-height:1.8;font-size:14.5px;max-width:420px;margin:0 auto}
+.cover-card .from{margin-top:16px;font-size:12px;letter-spacing:2px;color:#ffb9df}
+.cover-btn{margin-top:30px;border:0;border-radius:999px;padding:16px 34px;font-size:13.5px;letter-spacing:1.5px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 18px 45px rgba(255,79,174,.4);animation:btnPulse 2.2s ease-in-out infinite}
+@keyframes btnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@media(max-width:760px){.cover-card p{font-size:13.5px}.cover-card h1{margin:16px 0 10px}}
+
+/* ===== INVITATION GATE: kertas undangan setelah lewat portal ===== */
+#invitationGate{position:fixed;inset:0;z-index:998;display:flex;align-items:center;justify-content:center;
+opacity:0;pointer-events:none;transition:opacity .6s ease;
+background:radial-gradient(ellipse at 50% 40%,rgba(255,150,200,.14),transparent 60%),#050311}
+#invitationGate.show{opacity:1;pointer-events:auto}
+.paper-card{position:relative;width:min(420px,86vw);padding:48px 30px 40px;text-align:center;cursor:pointer;
+background:linear-gradient(160deg,#fdf6e9,#f3e6cd);border-radius:6px;
+box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.4) inset;
+transition:transform .6s cubic-bezier(.6,0,.3,1),opacity .6s ease}
+.paper-card.opening{animation:paperOpen .8s cubic-bezier(.6,0,.3,1) forwards}
+@keyframes paperOpen{to{transform:scale(1.15) rotateX(35deg);opacity:0}}
+.paper-card:before{content:"";position:absolute;inset:12px;border:1px solid rgba(180,140,90,.45);border-radius:3px;pointer-events:none}
+.paper-corner{position:absolute;font-size:16px;color:#b98a4e;opacity:.7}
+.paper-corner.tl{top:16px;left:16px}.paper-corner.tr{top:16px;right:16px}
+.paper-corner.bl{bottom:16px;left:16px}.paper-corner.br{bottom:16px;right:16px}
+.paper-seal{width:54px;height:54px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+font-size:22px;background:radial-gradient(circle at 35% 30%,#ff8fc0,#e0508f 70%);
+box-shadow:0 8px 18px rgba(200,60,120,.4)}
+.paper-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:3px;color:#a97c46;text-transform:uppercase}
+.paper-card h2{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,32px);color:#4a3520;margin:12px 0 6px;letter-spacing:.5px}
+.paper-card .to-for{font-family:'Cormorant Garamond',serif;font-size:19px;color:#6b4e2c;margin:14px 0 4px}
+.paper-card .to-for b{font-family:'Playfair Display',serif;font-size:24px;color:#8a2f52}
+.paper-card .from-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#8a6a3f;margin-top:6px}
+.paper-hint{margin-top:24px;font-size:10.5px;letter-spacing:2.5px;color:#a9824f;text-transform:uppercase;animation:btnPulse 2.2s ease-in-out infinite}
+@media(max-width:760px){.paper-card{padding:38px 20px 32px}}
 </style>
 </head>
 <body>
 
-<!-- ===== COVER GATE: bunga menutup layar sebelum undangan muncul ===== -->
+<!-- ===== COVER GATE: bunga jadi portal sebelum undangan muncul ===== -->
 <div id="coverGate">
+  <div class="portal-ring"></div>
   <div class="flower-field" id="flowerField"></div>
   <div class="cover-card">
     <div class="badge">SEBUAH UNDANGAN KECIL</div>
     <h1>Untuk Ara 💐</h1>
-    <p>Ada cerita kecil yang disiapkan khusus buat kamu. Sentuh bunganya, dan biarkan halamannya perlahan terbuka.</p>
+    <p>Ada cerita kecil yang disiapkan khusus buat kamu. Sentuh bunganya, dan biarkan portalnya membawamu masuk.</p>
     <div class="from">— DARI GERDY, DENGAN SEGALA GEMAS &amp; GOMBALANNYA ✦</div>
-    <button class="cover-btn" onclick="openInvitation()">🌸 Buka Undangannya</button>
+    <button class="cover-btn" onclick="enterPortal()">🌸 Masuk Lewat Bunga</button>
   </div>
 </div>
 
-<div id="space"><div class="nebula"></div></div>
+<!-- ===== INVITATION GATE: kertas undangan setelah lewat portal ===== -->
+<div id="invitationGate">
+  <div class="paper-card" id="paperCard" onclick="openPaper()">
+    <span class="paper-corner tl">❧</span><span class="paper-corner tr">❧</span>
+    <span class="paper-corner bl">❧</span><span class="paper-corner br">❧</span>
+    <div class="paper-seal">💌</div>
+    <div class="paper-label">Undangan Spesial</div>
+    <h2>Kamu Ditunggu</h2>
+    <div class="to-for">Untuk, <b>Ara</b></div>
+    <div class="from-line">dari Gerdy, dengan sepenuh hati</div>
+    <div class="paper-hint">Ketuk kertas untuk membuka ✦</div>
+  </div>
+</div>
+
+<div id="space">
+  <div class="nebula"></div>
+  <div class="celestial c-sun"></div>
+  <div class="celestial c-moon"></div>
+  <div class="celestial c-jupiter"><span class="spot"></span></div>
+  <div class="c-saturn-wrap"><div class="celestial c-saturn"></div><div class="c-saturn-ring"></div></div>
+  <div class="celestial c-mars"></div>
+</div>
 <div class="brand">✦ OUR LITTLE GALAXY ✦</div>
 <button class="music" id="musicBtn" onclick="toggleMusic()"><span>♫</span> Musik</button>
 <audio id="music" src="musik1.mp3" loop preload="auto"></audio>
@@ -202,10 +312,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 1">
-            <span class="ph-icon">📷</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 1)</span>
-          </div>
+          <img src="IMG-20260629-WA0109.jpg" alt="Kenangan 1">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -223,10 +330,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 2">
-            <span class="ph-icon">💫</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 2)</span>
-          </div>
+          <img src="IMG-20260627-WA0059.jpg" alt="Kenangan 2">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -244,10 +348,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 3">
-            <span class="ph-icon">🌷</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 3)</span>
-          </div>
+          <img src="IMG-20260627-WA0044.jpg" alt="Kenangan 3">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -265,10 +366,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 4">
-            <span class="ph-icon">🌙</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 4)</span>
-          </div>
+          <img src="IMG-20260626-WA0073.jpg" alt="Kenangan 4">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -286,10 +384,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 5">
-            <span class="ph-icon">🚶</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 5)</span>
-          </div>
+          <img src="IMG-20260626-WA0072.jpg" alt="Kenangan 5">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -307,10 +402,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 6">
-            <span class="ph-icon">⭐</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 6)</span>
-          </div>
+          <img src="IMG-20260623-WA0148.jpg" alt="Kenangan 6">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -328,10 +420,7 @@ animation:photoFloat 5s ease-in-out infinite;text-align:center}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <div class="photo-placeholder" role="img" aria-label="Kenangan 7">
-            <span class="ph-icon">🪟</span>
-            <span class="ph-label">Foto kalian di sini<br>(Kenangan 7)</span>
-          </div>
+          <img src="IMG-20260621-WA0038.jpg" alt="Kenangan 7">
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -441,10 +530,26 @@ for(let i=0;i<42;i++){
   s.style.animationDelay=(Math.random()*6)+'s';
   flowerField.appendChild(s);
 }
-function openInvitation(){
-  document.getElementById('coverGate').classList.add('opened');
+
+/* tahap 1: tembus portal bunga -> muncul kertas undangan */
+function enterPortal(){
+  const gate=document.getElementById('coverGate');
+  gate.classList.add('portal-out');
   if(music.paused) tryMusic();
-  setTimeout(()=>{document.getElementById('coverGate').style.display='none'},950);
+  setTimeout(()=>{
+    gate.style.display='none';
+    document.getElementById('invitationGate').classList.add('show');
+  },820);
+}
+
+/* tahap 2: buka kertas undangan -> masuk ke galaxy */
+function openPaper(){
+  const paper=document.getElementById('paperCard');
+  const invGate=document.getElementById('invitationGate');
+  paper.classList.add('opening');
+  setTimeout(()=>{
+    invGate.style.display='none';
+  },780);
 }
 
 const total=10;
@@ -515,4 +620,4 @@ function finish(){
 go(0);
 </script>
 </body>
-                                          </html>
+ </html>
