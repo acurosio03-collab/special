@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Untuk Kamu — Our Little Galaxy</title>
+<title>Untuk Ara — Our Little Galaxy 💐</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02030b;color:#fff;font-family:Inter,"Segoe UI",system-ui,sans-serif}
@@ -138,9 +138,48 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
  .cats-svg{transform:scale(1.08);transform-origin:center bottom}
 }
 
+/* ===== COVER GATE: layar bunga sebelum undangan muncul ===== */
+#coverGate{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;
+background:radial-gradient(ellipse at 50% 25%,rgba(255,120,190,.28),transparent 62%),radial-gradient(ellipse at 20% 85%,rgba(140,90,255,.18),transparent 55%),linear-gradient(160deg,#1b0f2c,#02030b 72%);
+overflow:hidden;transition:opacity .9s ease,transform .9s ease}
+#coverGate.opened{opacity:0;transform:scale(1.08);pointer-events:none}
+.flower-field{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.flower-field span{position:absolute;top:-12%;animation:flowerFall linear infinite;will-change:transform,opacity}
+@keyframes flowerFall{0%{transform:translateY(0) rotate(0deg);opacity:0}8%{opacity:.95}90%{opacity:.85}100%{transform:translateY(118vh) rotate(340deg);opacity:0}}
+.cover-card{position:relative;z-index:2;text-align:center;max-width:540px;padding:0 26px}
+.cover-card .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 16px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#ffd7ec;background:rgba(255,255,255,.06);backdrop-filter:blur(10px)}
+.cover-card h1{font-size:clamp(32px,7.5vw,56px);line-height:1.08;letter-spacing:-2px;margin:20px 0 14px;background:linear-gradient(90deg,#fff,#ffb8e5,#e3c4ff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+.cover-card p{color:#dcdcef;line-height:1.8;font-size:14.5px;max-width:420px;margin:0 auto}
+.cover-card .from{margin-top:16px;font-size:12px;letter-spacing:2px;color:#ffb9df}
+.cover-btn{margin-top:30px;border:0;border-radius:999px;padding:16px 34px;font-size:13.5px;letter-spacing:1.5px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 18px 45px rgba(255,79,174,.4);animation:btnPulse 2.2s ease-in-out infinite}
+@keyframes btnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@media(max-width:760px){.cover-card p{font-size:13.5px}.cover-card h1{margin:16px 0 10px}}
+
+/* ===== placeholder foto (dipakai selama belum ada foto asli) ===== */
+.photo-placeholder{position:relative;z-index:3;width:min(460px,42vw);height:min(570px,65vh);border-radius:30px;padding:8px;
+background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 100px rgba(0,0,0,.6),0 0 70px rgba(130,80,255,.13);
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+animation:photoFloat 5s ease-in-out infinite;text-align:center}
+.photo-placeholder .ph-icon{font-size:46px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.35))}
+.photo-placeholder .ph-label{font-size:11px;letter-spacing:2px;color:#b9bcd8;text-transform:uppercase;padding:0 20px;line-height:1.6}
+@media(max-width:760px){.photo-placeholder{width:min(70vw,330px);height:42vh;min-height:300px}}
 </style>
 </head>
 <body>
+
+<!-- ===== COVER GATE: bunga menutup layar sebelum undangan muncul ===== -->
+<div id="coverGate">
+  <div class="flower-field" id="flowerField"></div>
+  <div class="cover-card">
+    <div class="badge">SEBUAH UNDANGAN KECIL</div>
+    <h1>Untuk Ara 💐</h1>
+    <p>Ada cerita kecil yang disiapkan khusus buat kamu. Sentuh bunganya, dan biarkan halamannya perlahan terbuka.</p>
+    <div class="from">— DARI GERDY, DENGAN SEGALA GEMAS &amp; GOMBALANNYA ✦</div>
+    <button class="cover-btn" onclick="openInvitation()">🌸 Buka Undangannya</button>
+  </div>
+</div>
+
 <div id="space"><div class="nebula"></div></div>
 <div class="brand">✦ OUR LITTLE GALAXY ✦</div>
 <button class="music" id="musicBtn" onclick="toggleMusic()"><span>♫</span> Musik</button>
@@ -150,8 +189,9 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
 <div class="intro" id="intro">
   <div class="intro-box">
     <div class="badge">SEBUAH CERITA YANG HANYA PUNYA SATU TOKOH UTAMA</div>
-    <h1>Untuk Kamu,<br>yang Diam-Diam Jadi Favoritku.</h1>
+    <h1>Untuk Ara,<br>yang Diam-Diam Jadi Favoritku.</h1>
     <p>Geser ke samping. Jangan buru-buru. Setiap halaman punya satu foto, satu cerita, dan satu alasan kenapa kamu begitu sulit untuk tidak disukai. 💗</p>
+    <div class="tiny" style="margin-top:18px">— disusun diam-diam oleh GERDY ✦</div>
   </div>
 </div>
 
@@ -162,7 +202,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260626-WA0073.jpg" alt="Kenangan 1">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 1">
+            <span class="ph-icon">📷</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 1)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -180,7 +223,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260627-WA0044.jpg" alt="Kenangan 2">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 2">
+            <span class="ph-icon">💫</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 2)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -198,7 +244,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260627-WA0053.jpg" alt="Kenangan 3">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 3">
+            <span class="ph-icon">🌷</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 3)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -216,7 +265,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260629-WA0109.jpg" alt="Kenangan 4">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 4">
+            <span class="ph-icon">🌙</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 4)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -234,7 +286,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260629-WA0114.jpg" alt="Kenangan 5">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 5">
+            <span class="ph-icon">🚶</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 5)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -252,7 +307,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="Screenshot_20260627-121344.png" alt="Kenangan 6">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 6">
+            <span class="ph-icon">⭐</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 6)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -270,7 +328,10 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
       <div class="slide-grid">
         <div class="photo-frame">
           <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="Screenshot_20260627-121451.png" alt="Kenangan 7">
+          <div class="photo-placeholder" role="img" aria-label="Kenangan 7">
+            <span class="ph-icon">🪟</span>
+            <span class="ph-label">Foto kalian di sini<br>(Kenangan 7)</span>
+          </div>
         </div>
         <div class="copy">
           <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
@@ -359,6 +420,7 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
     </div>
     <p class="tease">“Tapi hati-hati ya... kalau kamu jawab iya, aku bisa jadi makin sering menggombal. Dan kalau kamu senyum setelah membacanya, berarti aku menang satu ronde. 😏💗”</p>
     <button class="final-btn" onclick="finish()">Aku mau lanjut ke cerita berikutnya 💖</button>
+    <div class="tiny" style="margin-top:26px">Dengan sayang, GERDY — untuk Ara 💌</div>
   </div>
 </section>
 </div>
@@ -367,6 +429,24 @@ background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
 <div class="progress"><i id="progress"></i></div>
 
 <script>
+/* ===== isi bunga di cover gate ===== */
+const flowerEmojis=['🌸','🌷','💮','🌹','💐','🌺'];
+const flowerField=document.getElementById('flowerField');
+for(let i=0;i<42;i++){
+  const s=document.createElement('span');
+  s.textContent=flowerEmojis[Math.floor(Math.random()*flowerEmojis.length)];
+  s.style.left=Math.random()*100+'%';
+  s.style.fontSize=(16+Math.random()*22)+'px';
+  s.style.animationDuration=(6+Math.random()*7)+'s';
+  s.style.animationDelay=(Math.random()*6)+'s';
+  flowerField.appendChild(s);
+}
+function openInvitation(){
+  document.getElementById('coverGate').classList.add('opened');
+  if(music.paused) tryMusic();
+  setTimeout(()=>{document.getElementById('coverGate').style.display='none'},950);
+}
+
 const total=10;
 const deck=document.getElementById('deck');
 const music=document.getElementById('music');
@@ -435,4 +515,4 @@ function finish(){
 go(0);
 </script>
 </body>
- </html>
+                                          </html>
