@@ -298,8 +298,6 @@
 
 <div class="petal-field" id="petalField"></div>
 
-<div id="progress"></div>
-
 <div id="stage">
 
   <!-- SCENE 0 — COVER -->
@@ -406,7 +404,7 @@
 <!-- floating music toggle. Ganti src audio di bawah dengan lagu pilihan kamu (mp3 sendiri / link legal). -->
 <button id="musicBtn" onclick="toggleMusic()" title="Musik">🎵</button>
 <audio id="bgm" loop preload="none">
-  <!-- <source src="nama-file-lagu-kamu.mp3" type="audio/mpeg"> -->
+  <source src="musik1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -446,19 +444,6 @@
   const total = scenes.length;
   let current = 0;
 
-  const progressEl = document.getElementById('progress');
-  scenes.forEach((_,i)=>{
-    const d = document.createElement('div');
-    d.className='dot';
-    d.innerHTML = '<i></i>';
-    progressEl.appendChild(d);
-  });
-  const dots = Array.from(progressEl.children);
-
-  function renderProgress(){
-    dots.forEach((d,i)=>{ d.classList.toggle('done', i<=current); });
-  }
-
   function goTo(index){
     if(index<0 || index>=total || index===current) return;
     const cur = scenes[current];
@@ -468,13 +453,11 @@
     setTimeout(()=>{ cur.classList.remove('exit'); }, 550);
     nextScene.classList.add('active');
     current = index;
-    renderProgress();
   }
   function next(){ goTo(current+1); }
 
   // init
   scenes[0].classList.add('active');
-  renderProgress();
 
   function openEnvelope(){
     document.getElementById('envelope').classList.add('open');
@@ -509,15 +492,14 @@
     next();
     setTimeout(()=>{ document.getElementById('stamp').classList.add('show'); }, 500);
   }
-
   // background music toggle
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
   let playing = false;
   function toggleMusic(){
     if(!bgm.querySelector('source')){
-      musicBtn.textContent = '🎵';
-      musicBtn.title = 'musik1.mp3';
+      musicBtn.textContent = '🔇';
+      musicBtn.title = 'Belum ada lagu — tambahin file mp3 di kode ya';
       return;
     }
     if(playing){ bgm.pause(); musicBtn.classList.remove('playing'); }
