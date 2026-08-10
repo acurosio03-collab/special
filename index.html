@@ -1,623 +1,474 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
-<title>Untuk Ara — Our Little Galaxy 💐</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Buat Ara, dari Gerdy</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#02030b;color:#fff;font-family:Inter,"Segoe UI",system-ui,sans-serif}
-body{cursor:default}
-#space{position:fixed;inset:0;overflow:hidden;background:
-radial-gradient(ellipse at 50% 50%,rgba(108,71,255,.18),transparent 35%),
-radial-gradient(ellipse at 20% 80%,rgba(255,72,188,.12),transparent 30%),
-radial-gradient(ellipse at 85% 15%,rgba(70,220,255,.10),transparent 28%),
-#02030b}
-#space:before,#space:after{content:"";position:absolute;inset:-40%;background:
-radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 1.6px),
-radial-gradient(circle at 70% 60%,rgba(255,255,255,.8) 0 1px,transparent 1.5px);
-background-size:90px 90px,145px 145px;animation:stars 70s linear infinite}
-#space:after{opacity:.35;transform:scale(1.2);animation-duration:38s;animation-direction:reverse}
-@keyframes stars{to{transform:translate3d(-100px,120px,0) rotate(2deg)}}
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Playfair+Display:ital,wght@0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap');
 
-.nebula{position:absolute;inset:-20%;background:conic-gradient(from 30deg at 50% 50%,transparent 0 18%,rgba(143,85,255,.08) 24%,transparent 35%,rgba(255,70,190,.07) 49%,transparent 64%,rgba(74,221,255,.07) 77%,transparent 88%);filter:blur(40px);animation:nebula 35s linear infinite}
-@keyframes nebula{to{transform:rotate(360deg)}}
-.progress{position:fixed;z-index:30;left:4vw;right:4vw;bottom:22px;height:3px;border-radius:9px;background:rgba(255,255,255,.1)}
-.progress i{display:block;height:100%;width:14.28%;border-radius:9px;background:linear-gradient(90deg,#ff54b5,#a378ff,#69eaff);box-shadow:0 0 14px #ff64c0;transition:.5s}
-.brand{position:fixed;z-index:30;top:18px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:3px;color:#d9dbef;border:1px solid rgba(255,255,255,.12);padding:8px 14px;border-radius:999px;background:rgba(4,5,18,.5);backdrop-filter:blur(15px);white-space:nowrap}
-.music{position:fixed;z-index:31;right:18px;top:16px;border:1px solid rgba(255,255,255,.14);background:rgba(5,6,20,.58);color:#fff;border-radius:999px;padding:9px 13px;font-size:11px;backdrop-filter:blur(15px);cursor:pointer}
-.music span{display:inline-block;margin-right:5px;animation:pulse 1s infinite}
-@keyframes pulse{50%{transform:scale(1.25)}}
+  :root{
+    --cream:#FBF2E9;
+    --paper:#FFF9F2;
+    --rose:#B5495B;
+    --rose-deep:#8A3444;
+    --blush:#F3D6CC;
+    --gold:#CFA45C;
+    --ink:#4A362F;
+    --ink-soft:#8A756C;
+  }
 
-#deck{position:fixed;inset:0;display:flex;width:100vw;height:100vh;transition:transform .8s cubic-bezier(.77,0,.18,1);will-change:transform}
-.slide{position:relative;min-width:100vw;width:100vw;height:100vh;display:grid;place-items:center;padding:70px 7vw;overflow:hidden}
-.stars-panel{position:absolute;inset:0;background:radial-gradient(circle at 30% 45%,rgba(255,255,255,.08) 0 1px,transparent 1.5px),radial-gradient(circle at 75% 20%,rgba(112,222,255,.5) 0 1px,transparent 1.5px);background-size:100px 100px,170px 170px;opacity:.45}
-.slide-grid{position:relative;z-index:2;width:min(1120px,90vw);display:grid;grid-template-columns:1fr 1fr;gap:clamp(35px,7vw,100px);align-items:center}
-.slide:nth-child(odd) .photo-frame{order:1}.slide:nth-child(odd) .copy{order:2}
-.slide:nth-child(even) .photo-frame{order:2}.slide:nth-child(even) .copy{order:1}
-.photo-frame{position:relative;display:grid;place-items:center;min-height:65vh}
-.photo-frame img{position:relative;z-index:3;width:min(460px,42vw);height:min(570px,65vh);object-fit:cover;border-radius:30px;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 100px rgba(0,0,0,.6),0 0 70px rgba(130,80,255,.13);animation:photoFloat 5s ease-in-out infinite}
-@keyframes photoFloat{50%{transform:translateY(-8px) rotate(.4deg)}}
-.orbit{position:absolute;border:1px solid rgba(177,128,255,.22);border-radius:50%;transform:rotate(-25deg)}
-.orbit-a{width:120%;height:55%;animation:orbit 12s linear infinite}
-.orbit-b{width:105%;height:70%;border-color:rgba(93,224,255,.14);animation:orbit 17s linear infinite reverse}
-@keyframes orbit{to{transform:rotate(335deg)}}
-.slide-number{position:absolute;z-index:4;top:80px;left:7vw;color:#6e7598;font-size:10px;letter-spacing:3px}
-.copy{max-width:560px}
-.eyebrow{font-size:10px;letter-spacing:3px;color:#78e5ff;margin-bottom:14px}
-.copy h2{font-size:clamp(32px,5vw,62px);line-height:1.02;letter-spacing:-2px;margin:0 0 20px;background:linear-gradient(90deg,#fff,#ffb8e5,#b4eaff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.copy p{font-size:clamp(15px,1.5vw,18px);line-height:1.9;color:#d5d7e8;margin:0}
-.flirt{margin-top:25px;padding:19px 20px;border-radius:20px;background:linear-gradient(135deg,rgba(255,91,190,.11),rgba(115,91,255,.08));border:1px solid rgba(255,255,255,.1);color:#ffc1e6;line-height:1.7;font-size:15px;box-shadow:0 15px 45px rgba(0,0,0,.2)}
-.tiny{margin-top:22px;color:#777d9f;font-size:10px;letter-spacing:1.5px}
-.nav{position:fixed;z-index:30;bottom:43px;left:50%;transform:translateX(-50%);display:flex;gap:9px}
-.dot{width:7px;height:7px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.25);cursor:pointer;transition:.3s}
-.dot.active{width:24px;border-radius:10px;background:#ff74c5;box-shadow:0 0 12px #ff74c5}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+  }
 
-.end{position:absolute;min-width:100vw;width:100vw;height:100vh;left:900vw;top:0;display:grid;place-items:center;padding:70px 7vw;text-align:center}
-.endbox{width:min(850px,92vw);padding:clamp(28px,6vw,65px);border:1px solid rgba(255,255,255,.14);border-radius:35px;background:rgba(255,255,255,.05);backdrop-filter:blur(18px);box-shadow:0 30px 100px rgba(0,0,0,.45)}
-.endbox .heart{font-size:42px}
-.endbox h2{font-size:clamp(31px,5vw,56px);line-height:1.1;margin:12px 0}
-.endbox h2 span{color:#ff9fdc}
-.endbox p{color:#b8bad0;line-height:1.8;max-width:690px;margin:0 auto 22px}
-.questions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:left}
-.q{padding:17px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.04)}
-.q b{display:block;color:#ffb6df;margin-bottom:7px}.q span{font-size:12px;color:#d1d3e1;line-height:1.6}
-.tease{color:#ffb9df;font-style:italic;margin:20px auto 0;max-width:680px;line-height:1.7}.final-btn{margin-top:24px;border:0;border-radius:999px;padding:13px 22px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 12px 35px rgba(255,79,174,.25)}
+  .scene{
+    min-height:100svh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    padding:8vh 6vw;
+    text-align:center;
+    scroll-snap-align:start;
+  }
+  #scenes{scroll-snap-type:y proximity;}
 
-.intro{position:relative;min-width:100vw;width:100vw;height:100vh;display:grid;place-items:center;text-align:center;padding:80px 24px;overflow:hidden}
-.intro.hide{opacity:1;transform:none}
-.intro-box{max-width:800px}
-.intro .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 14px;border:1px solid rgba(255,255,255,.14);border-radius:999px;color:#d8d9ec;background:rgba(255,255,255,.05)}
-.intro h1{font-size:clamp(40px,8vw,80px);line-height:.98;letter-spacing:-3px;margin:18px 0;background:linear-gradient(90deg,#fff,#ffb5e2,#a7eaff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
-.intro p{color:#aeb2d0;line-height:1.8;max-width:650px;margin:auto}
+  .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--rose);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  .script{
+    font-family:'Caveat',cursive;
+    font-weight:700;
+  }
+  p{
+    font-size:0.98rem;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:460px;
+  }
 
-@media(max-width:760px){
- .slide{padding:80px 22px 100px}
- .slide-grid{grid-template-columns:1fr;gap:20px;width:92vw}
- .slide:nth-child(odd) .photo-frame,.slide:nth-child(even) .photo-frame{order:1}
- .slide:nth-child(odd) .copy,.slide:nth-child(even) .copy{order:2}
- .photo-frame{min-height:42vh}
- .photo-frame img{width:min(70vw,330px);height:42vh;min-height:300px}
- .copy h2{font-size:34px;letter-spacing:-1px}
- .copy p{font-size:14px;line-height:1.7}
- .flirt{font-size:13px;margin-top:15px;padding:15px}
- .questions{grid-template-columns:1fr}
- .end{padding:75px 20px 100px}
- .endbox{max-height:86vh;overflow:auto}
- .tiny{margin-top:10px}
-}
+  /* ---------- ambient petals ---------- */
+  .petal-field{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+  .petal{
+    position:absolute;
+    top:-8%;
+    width:14px;height:14px;
+    background:radial-gradient(circle at 30% 30%, #f6c9c9, var(--rose) 120%);
+    border-radius:60% 0 60% 0;
+    opacity:0.55;
+    animation:fall linear infinite;
+  }
+  @keyframes fall{
+    to{ transform:translateY(115vh) rotate(320deg); }
+  }
 
-/* FINAL POLISH: clean typography and spacing */
-.intro-box{position:relative;z-index:3;width:min(760px,92vw)}
-.intro h1{margin:20px auto 16px;max-width:760px}
-.intro p{font-size:15px;max-width:620px}
-.slide-grid{min-height:0}
-.copy{padding:10px 0}
-.copy h2{max-width:560px}
-.copy p{max-width:560px}
-.flirt{max-width:560px}
-@media(max-width:760px){
-  .slide{padding-top:86px;padding-bottom:95px}
-  .slide-grid{gap:14px;align-content:center}
-  .photo-frame{min-height:39vh}
-  .photo-frame img{height:39vh;min-height:260px}
-  .copy{padding:0}
-  .eyebrow{margin-bottom:8px}
-  .copy h2{font-size:31px;line-height:1.08;margin-bottom:10px}
-  .copy p{font-size:13.5px;line-height:1.65}
-  .flirt{font-size:13px;line-height:1.55;margin-top:11px;padding:13px 15px}
-  .tiny{margin-top:9px}
-  .slide-number{top:72px}
-}
+  /* ---------- SCENE 0 : cover ---------- */
+  .ring{
+    width:200px;height:200px;
+    border:1px solid rgba(138,52,68,0.25);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin:34px auto;
+    animation:spin 40s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .ring span{
+    position:absolute;
+    font-size:22px;
+    animation:counterspin 40s linear infinite;
+  }
+  @keyframes counterspin{to{transform:rotate(-360deg);}}
+  .tap-hint{
+    margin-top:30px;
+    font-size:0.8rem;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
 
+  /* ---------- SCENE 1 : envelope ---------- */
+  .envelope-wrap{
+    position:relative;
+    width:260px;height:170px;
+    margin:40px auto 10px;
+    cursor:pointer;
+  }
+  .env-back{
+    position:absolute;inset:0;
+    background:linear-gradient(160deg,#fff,#f6e9df);
+    border-radius:8px;
+    box-shadow:0 20px 40px -18px rgba(74,54,47,0.4);
+  }
+  .env-card{
+    position:absolute;
+    left:18px; top:-14px;
+    width:224px;height:150px;
+    background:var(--paper);
+    border-radius:6px;
+    box-shadow:0 10px 24px -12px rgba(74,54,47,0.35);
+    transition:transform 0.7s cubic-bezier(.2,.8,.2,1);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Caveat',cursive;
+    color:var(--ink-soft);
+    font-size:1.1rem;
+    padding:18px;
+  }
+  .envelope-wrap.open .env-card{ transform:translateY(-120px) rotate(-3deg); }
+  .seal{
+    position:absolute;
+    left:50%;top:58%;
+    transform:translate(-50%,-50%);
+    width:74px;height:74px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #d17c88, var(--rose-deep) 75%);
+    box-shadow:0 6px 14px -4px rgba(138,52,68,0.6);
+    display:flex;align-items:center;justify-content:center;
+    color:#f4d9d0;
+    font-size:1.4rem;
+    z-index:2;
+    transition:transform 0.4s ease, opacity 0.4s ease;
+  }
+  .envelope-wrap.open .seal{ transform:translate(-50%,-50%) scale(0); opacity:0; }
+  .envelope-wrap:active .seal{ transform:translate(-50%,-50%) scale(0.92); }
 
-.cat-bonus{position:absolute;min-width:100vw;width:100vw;height:100vh;left:800vw;top:0;display:grid;place-items:center;padding:70px 7vw;overflow:hidden;text-align:center}
-.cat-stars{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(255,255,255,.7) 0 1px,transparent 1.5px),radial-gradient(circle at 80% 70%,rgba(255,122,210,.8) 0 1px,transparent 1.5px);background-size:90px 90px,140px 140px;opacity:.5}
-.cat-card{position:relative;z-index:2;width:min(850px,92vw);padding:clamp(25px,5vw,50px);border:1px solid rgba(255,255,255,.15);border-radius:35px;background:rgba(255,255,255,.055);backdrop-filter:blur(18px);box-shadow:0 30px 100px rgba(0,0,0,.5)}
-.cat-badge{font-size:11px;letter-spacing:3px;color:#ff9fdc;margin-bottom:10px}
-.cat-card h2{font-size:clamp(30px,5vw,52px);margin:0 0 12px}
-.cat-card>p{max-width:650px;margin:0 auto 20px;color:#bfc1d6;line-height:1.7}
-.cat-photo-wrap{width:min(680px,88vw);margin:0 auto;border-radius:25px;overflow:hidden;border:1px solid rgba(255,255,255,.17);box-shadow:0 20px 70px rgba(0,0,0,.45)}
-.cat-photo-wrap img{width:100%;height:auto;display:block}
-.cat-line{margin:18px auto 0;max-width:680px;color:#ffc0e5;line-height:1.7;padding:15px 18px;border-radius:18px;background:rgba(255,92,190,.08);border:1px solid rgba(255,255,255,.09)}
-.cat-tease{margin:15px auto 0;color:#d7d8e7;line-height:1.7;max-width:680px}
-.cat-tease strong{color:#ffb4df}
+  /* ---------- SCENE 2 : letter scroll ---------- */
+  .scroll-paper{
+    background:var(--paper);
+    width:min(340px,86vw);
+    border-radius:16px;
+    padding:36px 26px 30px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+    position:relative;
+  }
+  .scroll-paper:before, .scroll-paper:after{
+    content:'';
+    position:absolute; left:8%; right:8%;
+    height:18px;
+    background:linear-gradient(#fff,#f1e4d8);
+    border-radius:40px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.08);
+  }
+  .scroll-paper:before{ top:-9px; }
+  .scroll-paper:after{ bottom:-9px; }
+  .letter-body{
+    font-size:0.95rem;
+    line-height:1.85;
+    color:var(--ink);
+    text-align:left;
+    margin-top:18px;
+  }
+  .letter-body strong{ color:var(--rose-deep); }
 
+  /* ---------- buttons ---------- */
+  .btn{
+    border:none;
+    border-radius:999px;
+    padding:15px 30px;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn-primary{
+    background:var(--rose-deep);
+    color:#fbe9e4;
+    box-shadow:0 12px 24px -12px rgba(138,52,68,0.6);
+  }
+  .btn-primary:active{ transform:scale(0.96); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid rgba(138,52,68,0.3);
+  }
 
-.cat-scene{position:relative;width:min(780px,90vw);height:330px;margin:0 auto;border-radius:30px;background:radial-gradient(circle at 50% 55%,rgba(255,130,202,.13),transparent 48%),rgba(5,6,20,.45);border:1px solid rgba(255,255,255,.12);overflow:hidden;box-shadow:inset 0 0 60px rgba(140,100,255,.08),0 25px 70px rgba(0,0,0,.35)}
-.cats-svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 15px 20px rgba(0,0,0,.35))}
-.moon{position:absolute;width:100px;height:100px;border-radius:50%;right:55px;top:35px;background:#fff2b7;box-shadow:0 0 45px rgba(255,232,160,.4)}
-.spark{position:absolute;color:#fff3bf;z-index:3;animation:twinkle 1.8s infinite alternate}
-.s1{left:55px;top:45px}.s2{left:250px;top:25px;animation-delay:.5s}.s3{right:180px;bottom:45px;animation-delay:1s}
-@keyframes twinkle{from{opacity:.25;transform:scale(.7)}to{opacity:1;transform:scale(1.25)}}
-@media(max-width:760px){
- .cat-scene{height:290px;width:94vw}
- .cat-card{padding:22px 15px}
- .cat-card>p{font-size:13px}
- .cat-line{font-size:13px}
- .cats-svg{transform:scale(1.08);transform-origin:center bottom}
-}
+  /* ---------- SCENE 3 : mini mission ---------- */
+  .mission-card{
+    background:var(--paper);
+    width:min(320px,86vw);
+    border-radius:20px;
+    padding:44px 26px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+  }
+  .mission-caption{
+    min-height:44px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    margin:14px 0 26px;
+    transition:opacity .3s ease;
+  }
+  .mission-btns{
+    display:flex; gap:14px; align-items:center; justify-content:center;
+    flex-wrap:wrap;
+  }
+  #btnYes{ transition:all 0.35s cubic-bezier(.2,.8,.2,1); }
+  #btnNo{ transition:all 0.35s cubic-bezier(.2,.8,.2,1); }
 
-/* ===== COVER GATE: layar bunga sebelum undangan muncul ===== */
-#coverGate{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;
-background:radial-gradient(ellipse at 50% 25%,rgba(255,120,190,.28),transparent 62%),radial-gradient(ellipse at 20% 85%,rgba(140,90,255,.18),transparent 55%),linear-gradient(160deg,#1b0f2c,#02030b 72%);
-overflow:hidden;transition:opacity .9s ease,transform .9s ease}
-#coverGate.opened{opacity:0;transform:scale(1.08);pointer-events:none}
-.flower-field{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.flower-field span{position:absolute;top:-12%;animation:flowerFall linear infinite;will-change:transform,opacity}
-@keyframes flowerFall{0%{transform:translateY(0) rotate(0deg);opacity:0}8%{opacity:.95}90%{opacity:.85}100%{transform:translateY(118vh) rotate(340deg);opacity:0}}
-.cover-card{position:relative;z-index:2;text-align:center;max-width:540px;padding:0 26px}
-.cover-card .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 16px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#ffd7ec;background:rgba(255,255,255,.06);backdrop-filter:blur(10px)}
-.cover-card h1{font-size:clamp(32px,7.5vw,56px);line-height:1.08;letter-spacing:-2px;margin:20px 0 14px;background:linear-gradient(90deg,#fff,#ffb8e5,#e3c4ff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
-.cover-card p{color:#dcdcef;line-height:1.8;font-size:14.5px;max-width:420px;margin:0 auto}
-.cover-card .from{margin-top:16px;font-size:12px;letter-spacing:2px;color:#ffb9df}
-.cover-btn{margin-top:30px;border:0;border-radius:999px;padding:16px 34px;font-size:13.5px;letter-spacing:1.5px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 18px 45px rgba(255,79,174,.4);animation:btnPulse 2.2s ease-in-out infinite}
-@keyframes btnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
-@media(max-width:760px){.cover-card p{font-size:13.5px}.cover-card h1{margin:16px 0 10px}}
+  /* ---------- SCENE 4 : certificate ---------- */
+  .certificate{
+    background:var(--paper);
+    width:min(340px,86vw);
+    border-radius:16px;
+    padding:38px 26px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+    position:relative;
+  }
+  .stamp{
+    width:96px;height:96px;
+    margin:20px auto;
+    border-radius:50%;
+    border:3px double var(--rose);
+    display:flex;align-items:center;justify-content:center;
+    font-size:2rem;
+    color:var(--rose);
+    opacity:0;
+    transform:scale(0.4) rotate(-15deg);
+    transition:all 0.5s cubic-bezier(.2,.8,.2,1);
+  }
+  .stamp.show{ opacity:1; transform:scale(1) rotate(-8deg); }
 
-/* ===== placeholder foto (dipakai selama belum ada foto asli) ===== */
-.photo-placeholder{position:relative;z-index:3;width:min(460px,42vw);height:min(570px,65vh);border-radius:30px;padding:8px;
-background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
-border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 100px rgba(0,0,0,.6),0 0 70px rgba(130,80,255,.13);
-display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
-animation:photoFloat 5s ease-in-out infinite;text-align:center}
-.photo-placeholder .ph-icon{font-size:46px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.35))}
-.photo-placeholder .ph-label{font-size:11px;letter-spacing:2px;color:#b9bcd8;text-transform:uppercase;padding:0 20px;line-height:1.6}
-@media(max-width:760px){.photo-placeholder{width:min(70vw,330px);height:42vh;min-height:300px}}
-/* ===== TATA SURYA: matahari, bulan, jupiter, dkk di latar galaxy ===== */
-.celestial{position:absolute;border-radius:50%;pointer-events:none}
-.c-sun{width:150px;height:150px;top:-40px;right:-30px;
-background:radial-gradient(circle at 35% 35%,#fff6d8,#ffcf5e 45%,#ff9d4d 75%,#ff6a3d 100%);
-box-shadow:0 0 90px 25px rgba(255,170,90,.45),0 0 200px 90px rgba(255,120,90,.18);
-animation:driftA 26s ease-in-out infinite}
-.c-moon{width:78px;height:78px;left:6%;top:14%;
-background:radial-gradient(circle at 38% 32%,#fdfdf5,#d9dbe6 55%,#aeb1c4 100%);
-box-shadow:inset -10px -8px 18px rgba(0,0,0,.25),0 0 35px rgba(220,225,255,.25);
-animation:driftB 20s ease-in-out infinite}
-.c-moon:before,.c-moon:after{content:"";position:absolute;border-radius:50%;background:rgba(120,120,140,.28)}
-.c-moon:before{width:16px;height:16px;top:18px;left:14px}
-.c-moon:after{width:10px;height:10px;top:42px;left:38px}
-.c-jupiter{width:190px;height:190px;left:-70px;bottom:6%;border-radius:50%;overflow:hidden;
-background:repeating-linear-gradient(0deg,#e0b98c 0 10px,#c99568 10px 20px,#e7c9a0 20px 32px,#b8895c 32px 42px);
-box-shadow:0 0 70px rgba(220,170,120,.25),inset 12px 0 40px rgba(0,0,0,.35);
-animation:driftC 30s ease-in-out infinite,spinSlow 90s linear infinite}
-.c-jupiter .spot{position:absolute;width:34px;height:22px;border-radius:50%;background:rgba(180,90,60,.55);top:60%;left:55%;filter:blur(1px)}
-.c-saturn-wrap{position:absolute;right:6%;bottom:16%;width:120px;height:120px;transform:rotate(-18deg);animation:driftD 24s ease-in-out infinite}
-.c-saturn{position:absolute;width:70px;height:70px;left:25px;top:25px;border-radius:50%;
-background:radial-gradient(circle at 35% 32%,#ffe9c2,#e3b57c 60%,#b98a54 100%)}
-.c-saturn-ring{position:absolute;left:0;top:44px;width:120px;height:30px;border-radius:50%;
-border:7px solid rgba(230,210,180,.55);box-shadow:0 0 12px rgba(230,210,180,.25)}
-.c-mars{width:46px;height:46px;right:14%;top:10%;
-background:radial-gradient(circle at 35% 32%,#ff9a7a,#d9583a 65%,#a83f28 100%);
-box-shadow:0 0 25px rgba(220,90,60,.35);animation:driftA 22s ease-in-out infinite reverse}
-@keyframes driftA{50%{transform:translateY(22px)}}
-@keyframes driftB{50%{transform:translateY(-18px) translateX(8px)}}
-@keyframes driftC{50%{transform:translateY(-14px)}}
-@keyframes driftD{50%{transform:translateY(16px) rotate(-14deg)}}
-@keyframes spinSlow{to{transform:rotate(360deg)}}
-@media(max-width:760px){
-  .c-sun{width:100px;height:100px}
-  .c-moon{width:56px;height:56px}
-  .c-jupiter{width:130px;height:130px}
-  .c-saturn-wrap{width:90px;height:90px;transform:scale(.8) rotate(-18deg)}
-  .c-mars{width:34px;height:34px}
-}
+  /* ---------- SCENE 5 : bouquet ---------- */
+  .bouquet{
+    width:220px;height:240px;
+    position:relative;
+    margin:10px auto 24px;
+  }
+  .flower{
+    position:absolute;
+    border-radius:50%;
+    transform-origin:bottom center;
+  }
+  .stem{
+    position:absolute;
+    bottom:0; left:50%;
+    width:6px; height:120px;
+    background:linear-gradient(#6f8f5e,#4d6b40);
+    border-radius:6px;
+    transform:translateX(-50%) rotate(0deg);
+    transform-origin:bottom center;
+  }
+  .wrap-paper{
+    position:absolute;
+    bottom:-6px; left:50%;
+    transform:translateX(-50%);
+    width:170px;height:90px;
+    background:linear-gradient(180deg,#fff,#f2e6d8);
+    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
+    box-shadow:0 10px 20px -10px rgba(0,0,0,0.25);
+  }
+  .ribbon{
+    position:absolute;
+    bottom:36px; left:50%;
+    transform:translateX(-50%);
+    width:46px;height:20px;
+    background:var(--rose-deep);
+    border-radius:3px;
+  }
+  .tag{
+    display:inline-flex;
+    gap:8px; align-items:center;
+    border:1px solid rgba(138,52,68,0.25);
+    border-radius:999px;
+    padding:8px 16px;
+    font-size:0.82rem;
+    color:var(--rose-deep);
+    font-weight:600;
+    margin:5px;
+  }
 
-/* ===== COVER GATE: bunga jadi portal ===== */
-#coverGate{position:fixed;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;
-background:radial-gradient(ellipse at 50% 50%,rgba(255,120,190,.22),transparent 60%),radial-gradient(ellipse at 20% 85%,rgba(140,90,255,.16),transparent 55%),#02030b;
-overflow:hidden;transition:opacity .7s ease}
-#coverGate.portal-out{animation:portalSuck .85s cubic-bezier(.6,0,.9,.3) forwards}
-@keyframes portalSuck{to{opacity:0;transform:scale(.2) rotate(35deg)}}
-.portal-ring{position:absolute;width:min(78vw,560px);height:min(78vw,560px);border-radius:50%;
-background:conic-gradient(from 0deg,#ff62c1,#a17bff,#5fd7ff,#ff62c1);
-filter:blur(2px);opacity:.35;animation:spinSlow 14s linear infinite}
-.portal-ring:before{content:"";position:absolute;inset:14px;border-radius:50%;background:#02030b}
-.flower-field{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.flower-field span{position:absolute;top:-12%;animation:flowerFall linear infinite;will-change:transform,opacity}
-@keyframes flowerFall{0%{transform:translateY(0) rotate(0deg);opacity:0}8%{opacity:.95}90%{opacity:.85}100%{transform:translateY(118vh) rotate(340deg);opacity:0}}
-.cover-card{position:relative;z-index:2;text-align:center;max-width:540px;padding:0 26px}
-.cover-card .badge{display:inline-block;font-size:10px;letter-spacing:3px;padding:8px 16px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#ffd7ec;background:rgba(255,255,255,.06);backdrop-filter:blur(10px)}
-.cover-card h1{font-size:clamp(32px,7.5vw,56px);line-height:1.08;letter-spacing:-2px;margin:20px 0 14px;background:linear-gradient(90deg,#fff,#ffb8e5,#e3c4ff,#fff);background-size:250%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
-.cover-card p{color:#dcdcef;line-height:1.8;font-size:14.5px;max-width:420px;margin:0 auto}
-.cover-card .from{margin-top:16px;font-size:12px;letter-spacing:2px;color:#ffb9df}
-.cover-btn{margin-top:30px;border:0;border-radius:999px;padding:16px 34px;font-size:13.5px;letter-spacing:1.5px;color:#fff;background:linear-gradient(90deg,#ff4fae,#8d6aff);cursor:pointer;box-shadow:0 18px 45px rgba(255,79,174,.4);animation:btnPulse 2.2s ease-in-out infinite}
-@keyframes btnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
-@media(max-width:760px){.cover-card p{font-size:13.5px}.cover-card h1{margin:16px 0 10px}}
+  .footer-note{
+    margin-top:34px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    text-decoration:underline;
+    cursor:pointer;
+  }
 
-/* ===== INVITATION GATE: kertas undangan setelah lewat portal ===== */
-#invitationGate{position:fixed;inset:0;z-index:998;display:flex;align-items:center;justify-content:center;
-opacity:0;pointer-events:none;transition:opacity .6s ease;
-background:radial-gradient(ellipse at 50% 40%,rgba(255,150,200,.14),transparent 60%),#050311}
-#invitationGate.show{opacity:1;pointer-events:auto}
-.paper-card{position:relative;width:min(420px,86vw);padding:48px 30px 40px;text-align:center;cursor:pointer;
-background:linear-gradient(160deg,#fdf6e9,#f3e6cd);border-radius:6px;
-box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.4) inset;
-transition:transform .6s cubic-bezier(.6,0,.3,1),opacity .6s ease}
-.paper-card.opening{animation:paperOpen .8s cubic-bezier(.6,0,.3,1) forwards}
-@keyframes paperOpen{to{transform:scale(1.15) rotateX(35deg);opacity:0}}
-.paper-card:before{content:"";position:absolute;inset:12px;border:1px solid rgba(180,140,90,.45);border-radius:3px;pointer-events:none}
-.paper-corner{position:absolute;font-size:16px;color:#b98a4e;opacity:.7}
-.paper-corner.tl{top:16px;left:16px}.paper-corner.tr{top:16px;right:16px}
-.paper-corner.bl{bottom:16px;left:16px}.paper-corner.br{bottom:16px;right:16px}
-.paper-seal{width:54px;height:54px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-font-size:22px;background:radial-gradient(circle at 35% 30%,#ff8fc0,#e0508f 70%);
-box-shadow:0 8px 18px rgba(200,60,120,.4)}
-.paper-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;letter-spacing:3px;color:#a97c46;text-transform:uppercase}
-.paper-card h2{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,32px);color:#4a3520;margin:12px 0 6px;letter-spacing:.5px}
-.paper-card .to-for{font-family:'Cormorant Garamond',serif;font-size:19px;color:#6b4e2c;margin:14px 0 4px}
-.paper-card .to-for b{font-family:'Playfair Display',serif;font-size:24px;color:#8a2f52}
-.paper-card .from-line{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:#8a6a3f;margin-top:6px}
-.paper-hint{margin-top:24px;font-size:10.5px;letter-spacing:2.5px;color:#a9824f;text-transform:uppercase;animation:btnPulse 2.2s ease-in-out infinite}
-@media(max-width:760px){.paper-card{padding:38px 20px 32px}}
+  ::selection{ background:var(--blush); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ===== COVER GATE: bunga jadi portal sebelum undangan muncul ===== -->
-<div id="coverGate">
-  <div class="portal-ring"></div>
-  <div class="flower-field" id="flowerField"></div>
-  <div class="cover-card">
-    <div class="badge">SEBUAH UNDANGAN KECIL</div>
-    <h1>Untuk Ara 💐</h1>
-    <p>Ada cerita kecil yang disiapkan khusus buat kamu. Sentuh bunganya, dan biarkan portalnya membawamu masuk.</p>
-    <div class="from">— DARI GERDY, DENGAN SEGALA GEMAS &amp; GOMBALANNYA ✦</div>
-    <button class="cover-btn" onclick="enterPortal()">🌸 Masuk Lewat Bunga</button>
-  </div>
-</div>
+<div class="petal-field" id="petalField"></div>
 
-<!-- ===== INVITATION GATE: kertas undangan setelah lewat portal ===== -->
-<div id="invitationGate">
-  <div class="paper-card" id="paperCard" onclick="openPaper()">
-    <span class="paper-corner tl">❧</span><span class="paper-corner tr">❧</span>
-    <span class="paper-corner bl">❧</span><span class="paper-corner br">❧</span>
-    <div class="paper-seal">💌</div>
-    <div class="paper-label">Undangan Spesial</div>
-    <h2>Kamu Ditunggu</h2>
-    <div class="to-for">Untuk, <b>Ara</b></div>
-    <div class="from-line">dari Gerdy, dengan sepenuh hati</div>
-    <div class="paper-hint">Ketuk kertas untuk membuka ✦</div>
-  </div>
-</div>
+<div id="scenes">
 
-<div id="space">
-  <div class="nebula"></div>
-  <div class="celestial c-sun"></div>
-  <div class="celestial c-moon"></div>
-  <div class="celestial c-jupiter"><span class="spot"></span></div>
-  <div class="c-saturn-wrap"><div class="celestial c-saturn"></div><div class="c-saturn-ring"></div></div>
-  <div class="celestial c-mars"></div>
-</div>
-<div class="brand">✦ OUR LITTLE GALAXY ✦</div>
-<button class="music" id="musicBtn" onclick="toggleMusic()"><span>♫</span> Musik</button>
-<audio id="music" src="musik1.mp3" loop preload="auto"></audio>
-
-<div id="deck">
-<div class="intro" id="intro">
-  <div class="intro-box">
-    <div class="badge">SEBUAH CERITA YANG HANYA PUNYA SATU TOKOH UTAMA</div>
-    <h1>Untuk Ara,<br>yang Diam-Diam Jadi Favoritku.</h1>
-    <p>Geser ke samping. Jangan buru-buru. Setiap halaman punya satu foto, satu cerita, dan satu alasan kenapa kamu begitu sulit untuk tidak disukai. 💗</p>
-    <div class="tiny" style="margin-top:18px">— disusun diam-diam oleh GERDY ✦</div>
-  </div>
-</div>
-
-
-    <article class="slide" data-index="0">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 01 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260629-WA0109.jpg" alt="Kenangan 1">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Pertama Kali Aku Menyadari</h2>
-          <p>Kadang seseorang datang tanpa suara, lalu entah bagaimana membuat hari biasa terasa berbeda. Aku tidak tahu tepatnya kapan, tapi sejak mengenalmu, ada bagian kecil dari hariku yang selalu mencari keberadaanmu.</p>
-          <div class="flirt">“Kalau senyum kamu adalah matahari, aku rela jadi bumi yang setiap hari berputar cuma supaya tetap bisa melihatnya. ☀️💗”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-    <article class="slide" data-index="1">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 02 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260627-WA0059.jpg" alt="Kenangan 2">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Ada Hal yang Tidak Bisa Dijelaskan</h2>
-          <p>Aku pernah mencoba mencari alasan kenapa aku nyaman melihatmu. Tapi semakin dicari, semakin tidak ketemu. Mungkin memang ada rasa yang tidak perlu dijelaskan—cukup dirasakan, pelan-pelan, tanpa dipaksa.</p>
-          <div class="flirt">“Katanya hati punya logikanya sendiri. Pantas saja logikaku selalu error kalau urusannya kamu. 🥺✨”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-    <article class="slide" data-index="2">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 03 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260627-WA0044.jpg" alt="Kenangan 3">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Namamu Sering Muncul</h2>
-          <p>Ada hal kecil yang mungkin tidak pernah kamu sadari. Namamu kadang muncul begitu saja di pikiranku ketika aku sedang sibuk. Bukan karena sengaja, tapi karena ternyata kamu sudah punya tempat sendiri di sana.</p>
-          <div class="flirt">“Kalau pikiranku punya rumah, mungkin namamu sudah punya kamar sendiri. Dan tenang, sewanya gratis selamanya. 🏡💞”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-    <article class="slide" data-index="3">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 04 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260626-WA0073.jpg" alt="Kenangan 4">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Tentang Rindu yang Sederhana</h2>
-          <p>Aku tidak selalu ingin percakapan panjang. Kadang aku cuma ingin tahu kamu baik-baik saja. Satu pesan kecil darimu saja sudah cukup membuat hari terasa lebih ringan.</p>
-          <div class="flirt">“Aku nggak butuh chat 24 jam. Cukup satu &#x27;jangan lupa makan&#x27; darimu, hati ini sudah merasa diperhatikan semesta. 🌙”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-    <article class="slide" data-index="4">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 05 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260626-WA0072.jpg" alt="Kenangan 5">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Kalau Kita Berjalan Bersama</h2>
-          <p>Aku tidak tahu cerita seperti apa yang akan kita punya. Mungkin ada hari yang ramai, ada hari yang sepi, bahkan ada salah paham. Tapi kalau boleh memilih, aku ingin tetap berjalan pelan-pelan bersamamu.</p>
-          <div class="flirt">“Aku nggak janji jalan kita selalu mulus. Tapi kalau kamu mau, aku bisa jadi orang yang tetap jalan di sampingmu ketika jalannya mulai berliku. 🤍”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-    <article class="slide" data-index="5">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 06 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260623-WA0148.jpg" alt="Kenangan 6">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Kamu dan Semesta</h2>
-          <p>Kalau semesta punya miliaran bintang, aku selalu heran kenapa mataku justru memilih satu. Mungkin bukan karena kamu paling terang, tapi karena cahayamu terasa paling dekat dengan hati.</p>
-          <div class="flirt">“Aku nggak perlu teleskop untuk mencari bintang paling indah. Soalnya, bintangnya sedang membaca halaman ini. 🌌💫”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-    <article class="slide" data-index="6">
-      <div class="stars-panel"></div>
-      <div class="slide-number">BAB 07 / 7</div>
-      <div class="slide-grid">
-        <div class="photo-frame">
-          <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
-          <img src="IMG-20260621-WA0038.jpg" alt="Kenangan 7">
-        </div>
-        <div class="copy">
-          <div class="eyebrow">✦ SEBUAH CERITA TENTANG KAMU ✦</div>
-          <h2>Satu Pertanyaan Kecil</h2>
-          <p>Setelah semua kata ini, sebenarnya aku cuma ingin bertanya sederhana. Kalau suatu hari aku datang bukan sekadar untuk bercerita, tapi untuk benar-benar tinggal dalam ceritamu, apakah masih ada sedikit ruang untukku?</p>
-          <div class="flirt">“Kalau hatimu adalah rumah, aku nggak minta kamar paling besar. Sudut kecil dekat jendela pun aku sudah bahagia. 🪟❤️”</div>
-          <div class="tiny">Geser ke kiri / kanan untuk melanjutkan ✦</div>
-        </div>
-      </div>
-    </article>
-    
-<section class="cat-bonus">
-  <div class="cat-stars"></div>
-  <div class="cat-card">
-    <div class="cat-badge">BONUS BUAT KAMU 🐾</div>
-    <h2>Kalau Kamu Sudah Sampai Sini...</h2>
-    <p>Berarti kamu memang harus dapat hadiah kecil. Karena orang se-spesial kamu nggak boleh pulang cuma bawa gombalan. 😌💗</p>
-    
-<div class="cat-scene" aria-label="Ilustrasi tiga kucing gendut yang lucu">
-  <div class="moon"></div>
-  <div class="spark s1">✦</div><div class="spark s2">✧</div><div class="spark s3">✦</div>
-  <svg class="cats-svg" viewBox="0 0 900 430" role="img">
-    <!-- left chubby cat -->
-    <g transform="translate(65,80)">
-      <ellipse cx="150" cy="265" rx="118" ry="82" fill="#d9d5ff"/>
-      <path d="M82 207 L68 105 Q72 78 96 98 L150 142 L204 98 Q228 78 232 105 L218 207Z" fill="#d9d5ff"/>
-      <ellipse cx="150" cy="174" rx="92" ry="83" fill="#eceaff"/>
-      <circle cx="118" cy="170" r="10" fill="#26243c"/><circle cx="182" cy="170" r="10" fill="#26243c"/>
-      <circle cx="115" cy="167" r="3" fill="#fff"/><circle cx="179" cy="167" r="3" fill="#fff"/>
-      <path d="M145 190 Q150 197 155 190" stroke="#e78ab8" stroke-width="7" fill="none" stroke-linecap="round"/>
-      <path d="M108 193 Q78 195 57 188 M108 202 Q78 211 56 211 M192 193 Q222 195 243 188 M192 202 Q222 211 244 211" stroke="#aaa6cf" stroke-width="4" stroke-linecap="round"/>
-      <ellipse cx="150" cy="277" rx="55" ry="40" fill="#f5b5d7" opacity=".75"/>
-      <text x="150" y="365" text-anchor="middle" fill="#ffb9df" font-size="24" font-family="sans-serif">aku cuma gendut...</text>
-    </g>
-
-    <!-- center big chubby cat -->
-    <g transform="translate(320,35)">
-      <ellipse cx="180" cy="300" rx="145" ry="96" fill="#f4c5a9"/>
-      <path d="M103 236 L86 103 Q88 70 119 92 L180 143 L241 92 Q272 70 274 103 L257 236Z" fill="#f4c5a9"/>
-      <ellipse cx="180" cy="198" rx="111" ry="101" fill="#ffe0ca"/>
-      <path d="M112 137 Q140 112 168 122 M248 137 Q220 112 192 122" stroke="#c88969" stroke-width="8" fill="none" stroke-linecap="round"/>
-      <circle cx="141" cy="190" r="13" fill="#33263b"/><circle cx="219" cy="190" r="13" fill="#33263b"/>
-      <circle cx="137" cy="186" r="4" fill="#fff"/><circle cx="215" cy="186" r="4" fill="#fff"/>
-      <path d="M171 214 Q180 225 189 214" stroke="#e17d9e" stroke-width="9" fill="none" stroke-linecap="round"/>
-      <path d="M126 218 Q91 220 67 212 M126 230 Q91 239 64 239 M234 218 Q269 220 293 212 M234 230 Q269 239 296 239" stroke="#c88969" stroke-width="5" stroke-linecap="round"/>
-      <ellipse cx="180" cy="315" rx="78" ry="53" fill="#fff0e6"/>
-      <path d="M142 314 Q180 344 218 314" stroke="#e9a5b8" stroke-width="5" fill="none"/>
-      <path d="M115 283 Q180 250 245 283" stroke="#d79b7e" stroke-width="6" fill="none" opacity=".55"/>
-      <text x="180" y="412" text-anchor="middle" fill="#ffc0e4" font-size="26" font-weight="700" font-family="sans-serif">JANGAN LIHAT AKU...</text>
-    </g>
-
-    <!-- right sleepy cat -->
-    <g transform="translate(625,105)">
-      <ellipse cx="105" cy="245" rx="100" ry="70" fill="#b9c2cf"/>
-      <path d="M48 198 L39 101 Q43 78 62 95 L105 130 L148 95 Q167 78 171 101 L162 198Z" fill="#b9c2cf"/>
-      <ellipse cx="105" cy="172" rx="79" ry="71" fill="#dfe4ea"/>
-      <path d="M75 171 Q88 182 101 171 M109 171 Q122 182 135 171" stroke="#3a3b50" stroke-width="7" fill="none" stroke-linecap="round"/>
-      <path d="M99 190 Q105 196 111 190" stroke="#d986aa" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M72 205 Q52 207 36 202 M72 214 Q51 220 34 220 M138 205 Q158 207 174 202 M138 214 Q159 220 176 220" stroke="#929baa" stroke-width="4" stroke-linecap="round"/>
-      <ellipse cx="105" cy="258" rx="50" ry="34" fill="#eef1f5"/>
-      <text x="105" y="335" text-anchor="middle" fill="#b8c9df" font-size="22" font-family="sans-serif">😴</text>
-    </g>
-  </svg>
-</div>
-<div class="cat-line">“Aku memang nggak bisa kasih kamu satu galaksi... tapi setidaknya aku bisa kasih kamu alasan buat senyum lagi. 🐱💗”</div>
-    <div class="cat-tease">
-      <span>🐾</span> Pertanyaan terakhir: kalau aku sudah berhasil bikin kamu senyum sampai sini,
-      <strong>boleh nggak aku coba bikin kamu senyum lagi besok?</strong>
+  <!-- SCENE 0 — COVER -->
+  <section class="scene" id="scene0">
+    <div class="eyebrow">khusus buat Ara</div>
+    <h1 style="font-size:1.6rem;">Gerdy mau ngomong<br>sesuatu, boleh?</h1>
+    <div class="ring">
+      <span>🌸</span>
     </div>
-    <button class="final-btn" onclick="finish()">Boleh, coba aja 😳💖</button>
-  </div>
-</section>
+    <p>Bacanya pelan-pelan aja ya. Ini bukan basa-basi, ini beneran dari hati.</p>
+    <div class="tap-hint">↓ geser ke bawah</div>
+  </section>
 
-<section class="end">
-  <div class="endbox">
-    <div class="heart">🌙💗✨</div>
-    <h2>Sebelum cerita ini selesai...<br><span>boleh aku tanya?</span></h2>
-    <p>Kalau semua halaman tadi adalah caraku bilang bahwa kamu spesial, aku ingin tahu apakah masih ada sedikit ruang untukku di cerita kamu. Karena jujur, setelah melihat senyummu, aku mulai curiga... jangan-jangan aku memang sengaja dibuat jatuh hati sama kamu.</p>
-    <div class="questions">
-      <div class="q"><b>🌷 Kalau aku rindu?</b><span>Boleh nggak aku punya alasan untuk mencari kabarmu tanpa harus menunggu ada alasan?</span></div>
-      <div class="q"><b>🌌 Kalau kita ketemu?</b><span>Menurutmu siapa yang bakal lebih dulu salting—aku, kamu, atau kita berdua? Jangan bilang aku ya... aku sudah salting dari awal. 😳</span></div>
-      <div class="q"><b>💫 Kalau besok?</b><span>Maukah kamu masih ada di halaman berikutnya, bukan cuma sebagai cerita, tapi sebagai seseorang yang ingin aku kenal lebih jauh?</span></div>
-      <div class="q"><b>😏 Kalau aku godain?</b><span>Kalau aku bilang senyummu bahaya karena bikin aku lupa mau ngomong apa, kamu mau percaya atau malah senyum lagi?</span></div>
-      <div class="q"><b>💗 Kalau aku pilih kamu?</b><span>Kamu bakal pura-pura nggak tahu, atau diam-diam senang karena ternyata perasaanku ketahuan?</span></div>
-      <div class="q"><b>🫶 Kalau aku serius?</b><span>Kalau aku ingin jadi alasan kamu tersenyum setiap hari, boleh nggak aku mulai dari satu senyuman hari ini?</span></div>
+  <!-- SCENE 1 — ENVELOPE -->
+  <section class="scene" id="scene1">
+    <div class="eyebrow">private confession</div>
+    <h1 style="font-size:1.75rem;">Buat Ara,<br>dari Gerdy.</h1>
+    <p style="margin-top:10px;">Tap segelnya. Suratnya bakal kebuka sendiri.</p>
+    <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
+      <div class="env-back"></div>
+      <div class="env-card">buat Ara,<br>dari Gerdy 🤍</div>
+      <div class="seal" id="sealBtn">💌</div>
     </div>
-    <p class="tease">“Tapi hati-hati ya... kalau kamu jawab iya, aku bisa jadi makin sering menggombal. Dan kalau kamu senyum setelah membacanya, berarti aku menang satu ronde. 😏💗”</p>
-    <button class="final-btn" onclick="finish()">Aku mau lanjut ke cerita berikutnya 💖</button>
-    <div class="tiny" style="margin-top:26px">Dengan sayang, GERDY — untuk Ara 💌</div>
-  </div>
-</section>
-</div>
+  </section>
 
-<div class="nav" id="nav"></div>
-<div class="progress"><i id="progress"></i></div>
+  <!-- SCENE 2 — LETTER -->
+  <section class="scene" id="scene2">
+    <div class="scroll-paper reveal">
+      <div class="eyebrow" style="margin-bottom:2px;">dari Gerdy</div>
+      <h1 class="script" style="font-size:2.4rem;color:var(--rose-deep);">Maafin Gerdy Yaa</h1>
+      <div class="letter-body">
+        Ara, Gerdy tau akhir-akhir ini <strong>salahnya Gerdy udah kebanyakan</strong>. Bukan cuma satu, tapi numpuk — dan Gerdy nggak mau cari alasan buat itu semua.
+        <br><br>
+        Maaf buat setiap kali kamu nunggu tapi Gerdy malah lupa, buat setiap kata Gerdy yang bikin kamu sedih tanpa Gerdy sadar, dan buat setiap saat kamu butuh Gerdy peka tapi Gerdy malah nggak ada.
+        <br><br>
+        Ara nggak pernah minta banyak, tapi Gerdy masih sering bikin kamu kecewa. Gerdy sadar itu, dan Gerdy beneran menyesal.
+        <br><br>
+        Gerdy cuma pengen Ara tau satu hal: <strong>Gerdy sayang kamu</strong>, dan Gerdy pengen jadi lebih baik — bukan cuma janji doang.
+      </div>
+      <div style="margin-top:26px;">
+        <button class="btn btn-primary" onclick="scrollToId('scene3')">Oke, lanjut</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 3 — MINI MISSION -->
+  <section class="scene" id="scene3">
+    <div class="eyebrow">satu permintaan kecil</div>
+    <div class="mission-card">
+      <h1 style="font-size:1.7rem;">Mau maafin<br>Gerdy?</h1>
+      <div class="mission-caption" id="missionCaption">Gerdy janji bakal lebih baik lagi.</div>
+      <div class="mission-btns">
+        <button class="btn btn-primary" id="btnYes" onclick="pickYes()">Iya, maafin</button>
+        <button class="btn btn-ghost" id="btnNo" onclick="pickNo()">Mikir dulu</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 4 — CERTIFICATE -->
+  <section class="scene" id="scene4">
+    <div class="certificate">
+      <div class="eyebrow" style="color:var(--gold);">hasil scan: valid</div>
+      <h1 style="font-size:1.7rem;">Sertifikat<br>Baikan Lagi</h1>
+      <p style="margin:16px auto 0;">Dengan ini, Ara resmi udah maafin Gerdy. Mulai sekarang kita baikan lagi, dan Gerdy janji lebih perhatian, lebih peka, dan nggak ngulang kesalahan yang sama.</p>
+      <div class="stamp" id="stamp">🤍</div>
+      <p style="font-size:0.85rem;">Dari Gerdy, buat Ara. Simpan baik-baik ya.</p>
+      <div style="margin-top:22px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <span class="footer-note" style="text-decoration:none;color:var(--rose-deep);">Screenshot ini, terus kirim ke Gerdy 📩</span>
+        <button class="btn btn-primary" onclick="scrollToId('scene5')">Lanjut ke bouquet</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 5 — BOUQUET -->
+  <section class="scene" id="scene5">
+    <div class="bouquet" id="bouquet">
+      <div class="stem" style="transform:translateX(-50%) rotate(-8deg);"></div>
+      <div class="stem" style="transform:translateX(-50%) rotate(6deg);"></div>
+      <div class="stem" style="transform:translateX(-50%) rotate(0deg);"></div>
+      <div class="flower" style="width:56px;height:56px;left:40px;top:34px;background:radial-gradient(circle at 35% 30%,#e6899a,var(--rose-deep));"></div>
+      <div class="flower" style="width:64px;height:64px;left:82px;top:16px;background:radial-gradient(circle at 35% 30%,#eb96a4,var(--rose));"></div>
+      <div class="flower" style="width:50px;height:50px;left:130px;top:40px;background:radial-gradient(circle at 35% 30%,#f0aeb8,var(--rose));"></div>
+      <div class="flower" style="width:30px;height:30px;left:60px;top:10px;background:#fff8ef;box-shadow:inset 0 0 0 6px #e8d3b8;"></div>
+      <div class="flower" style="width:26px;height:26px;left:150px;top:20px;background:#fff8ef;box-shadow:inset 0 0 0 5px #e8d3b8;"></div>
+      <div class="ribbon"></div>
+      <div class="wrap-paper"></div>
+    </div>
+    <div class="eyebrow">buat Ara</div>
+    <h1 class="script" style="font-size:2.1rem;color:var(--rose-deep);">Makasih Udah<br>Mau Maafin Aku</h1>
+    <p>Ara, makasih udah kasih Gerdy satu kesempatan lagi. Gerdy sayang kamu, dan ini janji Gerdy — bukan cuma kata-kata.</p>
+    <div style="margin-top:16px;">
+      <span class="tag">🤍 Lebih peka</span>
+      <span class="tag">🌷 Lebih sabar</span>
+      <span class="tag">💌 Selalu jujur</span>
+    </div>
+    <div class="footer-note" onclick="scrollToId('scene0')">Ulang dari awal</div>
+  </section>
+
+</div>
 
 <script>
-/* ===== isi bunga di cover gate ===== */
-const flowerEmojis=['🌸','🌷','💮','🌹','💐','🌺'];
-const flowerField=document.getElementById('flowerField');
-for(let i=0;i<42;i++){
-  const s=document.createElement('span');
-  s.textContent=flowerEmojis[Math.floor(Math.random()*flowerEmojis.length)];
-  s.style.left=Math.random()*100+'%';
-  s.style.fontSize=(16+Math.random()*22)+'px';
-  s.style.animationDuration=(6+Math.random()*7)+'s';
-  s.style.animationDelay=(Math.random()*6)+'s';
-  flowerField.appendChild(s);
-}
-
-/* tahap 1: tembus portal bunga -> muncul kertas undangan */
-function enterPortal(){
-  const gate=document.getElementById('coverGate');
-  gate.classList.add('portal-out');
-  if(music.paused) tryMusic();
-  setTimeout(()=>{
-    gate.style.display='none';
-    document.getElementById('invitationGate').classList.add('show');
-  },820);
-}
-
-/* tahap 2: buka kertas undangan -> masuk ke galaxy */
-function openPaper(){
-  const paper=document.getElementById('paperCard');
-  const invGate=document.getElementById('invitationGate');
-  paper.classList.add('opening');
-  setTimeout(()=>{
-    invGate.style.display='none';
-  },780);
-}
-
-const total=10;
-const deck=document.getElementById('deck');
-const music=document.getElementById('music');
-const musicBtn=document.getElementById('musicBtn');
-const nav=document.getElementById('nav');
-let index=0;
-let startX=0,startY=0,dragging=false;
-
-for(let i=0;i<total;i++){
-  const b=document.createElement('button');b.className='dot'+(i===0?' active':'');
-  b.onclick=()=>go(i);nav.appendChild(b);
-}
-function go(i){
-  index=Math.max(0,Math.min(total-1,i));
-  deck.style.transform=`translateX(-${index*100}vw)`;
-  document.querySelectorAll('.dot').forEach((d,n)=>d.classList.toggle('active',n===index));
-  document.getElementById('progress').style.width=((index+1)/total*100)+'%';
-  
-}
-function next(){if(index<total-1)go(index+1)}
-function prev(){if(index>0)go(index-1)}
-
-window.addEventListener('wheel',e=>{
-  if(Math.abs(e.deltaX)>Math.abs(e.deltaY)){e.deltaX>0?next():prev()}
-  else{e.deltaY>0?next():prev()}
-},{passive:true});
-
-window.addEventListener('keydown',e=>{
-  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();next()}
-  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();prev()}
-});
-
-window.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY;dragging=true},{passive:true});
-window.addEventListener('touchend',e=>{
-  if(!dragging)return;dragging=false;
-  const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
-  if(Math.abs(dx)>45 && Math.abs(dx)>Math.abs(dy)) dx<0?next():prev();
-},{passive:true});
-
-function tryMusic(){
-  music.volume=.48;
-  const p=music.play();
-  if(p) p.then(()=>{musicBtn.innerHTML='<span>♫</span> Musik ON'}).catch(()=>{
-    // Browser autoplay policy may block sound until the first interaction.
-    musicBtn.innerHTML='<span>♫</span> Klik untuk musik';
-  });
-}
-function toggleMusic(){
-  if(music.paused){music.play();musicBtn.innerHTML='<span>♫</span> Musik ON'}
-  else{music.pause();musicBtn.innerHTML='<span>♫</span> Musik OFF'}
-}
-// Try immediately when the page opens. If the browser blocks autoplay,
-// the first tap/click anywhere will start it automatically.
-window.addEventListener('load',()=>setTimeout(tryMusic,250));
-window.addEventListener('pointerdown',()=>{if(music.paused)tryMusic()},{once:true});
-
-function finish(){
-  for(let i=0;i<35;i++){
-    const e=document.createElement('span');e.textContent=['💖','✨','💫','🌹','⭐','💕'][Math.floor(Math.random()*6)];
-    e.style.position='fixed';e.style.left='50%';e.style.top='50%';e.style.zIndex=99;e.style.pointerEvents='none';e.style.fontSize=(14+Math.random()*17)+'px';
-    const x=(Math.random()*2-1)*48,y=(Math.random()*2-1)*45;
-    e.animate([{transform:'translate(-50%,-50%) scale(.4)',opacity:1},{transform:`translate(calc(-50% + ${x}vw),calc(-50% + ${y}vh)) scale(1.3)`,opacity:0}],{duration:1000+Math.random()*900,easing:'cubic-bezier(.2,.8,.2,1)'});
-    document.body.appendChild(e);setTimeout(()=>e.remove(),2000);
+  // ambient petals
+  const field = document.getElementById('petalField');
+  for(let i=0;i<22;i++){
+    const p = document.createElement('div');
+    p.className='petal';
+    p.style.left = Math.random()*100+'vw';
+    p.style.animationDuration = (10+Math.random()*10)+'s';
+    p.style.animationDelay = (Math.random()*10)+'s';
+    p.style.opacity = 0.25+Math.random()*0.4;
+    p.style.transform = `scale(${0.6+Math.random()*0.9})`;
+    field.appendChild(p);
   }
-}
-go(0);
+
+  function scrollToId(id){
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  }
+
+  function openEnvelope(){
+    document.getElementById('envelope').classList.add('open');
+    setTimeout(()=>scrollToId('scene2'), 900);
+  }
+
+  // mini mission logic
+  let noClicks = 0;
+  const captions = [
+    "Gerdy janji bakal lebih baik lagi.",
+    "Yakin masih mau mikir? 🥺",
+    "Beneran nih belum yakin?",
+    "Oke, terakhir. Habis ini tombol 'iya' makin susah dihindarin."
+  ];
+  function updateCaption(){
+    document.getElementById('missionCaption').textContent = captions[Math.min(noClicks,captions.length-1)];
+  }
+  function pickNo(){
+    noClicks++;
+    updateCaption();
+    const yes = document.getElementById('btnYes');
+    const no = document.getElementById('btnNo');
+    const scale = Math.min(1 + noClicks*0.18, 1.9);
+    const shrink = Math.max(1 - noClicks*0.22, 0.35);
+    yes.style.transform = `scale(${scale})`;
+    yes.style.padding = `${15+noClicks*3}px ${30+noClicks*6}px`;
+    no.style.transform = `scale(${shrink})`;
+    no.style.opacity = Math.max(1-noClicks*0.22,0.3);
+    if(noClicks>=4){ no.style.pointerEvents='none'; }
+  }
+  function pickYes(){
+    scrollToId('scene4');
+    setTimeout(()=>{ document.getElementById('stamp').classList.add('show'); }, 500);
+  }
 </script>
+
 </body>
- </html>
+</html>
+
