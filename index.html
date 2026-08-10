@@ -18,28 +18,89 @@
     --ink-soft:#8A756C;
   }
 
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
   body{
-    background:var(--cream);
+    background:linear-gradient(135deg,#FBF2E9,#F7E4DC,#F3D9CE,#FBF2E9);
+    background-size:300% 300%;
+    animation:bgShift 18s ease infinite;
     color:var(--ink);
     font-family:'Poppins',sans-serif;
-    overflow-x:hidden;
+    overflow:hidden;
+    height:100svh;
+    position:relative;
+  }
+  @keyframes bgShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
   }
 
-  .scene{
-    min-height:100svh;
+  /* ---------- stage : one scene visible at a time ---------- */
+  #stage{
+    position:relative;
+    height:100svh;
     width:100%;
+  }
+  .scene{
+    position:absolute;
+    inset:0;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    position:relative;
-    padding:8vh 6vw;
+    padding:9vh 6vw 12vh;
     text-align:center;
-    scroll-snap-align:start;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(24px) scale(0.98);
+    transition:opacity 0.55s ease, transform 0.6s cubic-bezier(.2,.8,.2,1), visibility 0.55s;
+    z-index:1;
   }
-  #scenes{scroll-snap-type:y proximity;}
+  .scene.active{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+    z-index:2;
+  }
+  .scene.exit{
+    opacity:0;
+    transform:translateY(-24px) scale(0.98);
+  }
+
+  /* tap-to-advance layer (excludes interactive controls via stopPropagation) */
+  .tap-catch{
+    position:absolute; inset:0;
+    z-index:0;
+  }
+
+  /* ---------- progress dots ---------- */
+  #progress{
+    position:fixed;
+    top:calc(env(safe-area-inset-top,0px) + 16px);
+    left:0; right:0;
+    display:flex;
+    gap:6px;
+    justify-content:center;
+    z-index:50;
+    padding:0 20px;
+  }
+  #progress .dot{
+    flex:1;
+    max-width:38px;
+    height:4px;
+    border-radius:4px;
+    background:rgba(138,52,68,0.18);
+    overflow:hidden;
+  }
+  #progress .dot i{
+    display:block;
+    height:100%;
+    width:0%;
+    background:var(--rose-deep);
+    transition:width 0.4s ease;
+  }
+  #progress .dot.done i{ width:100%; }
 
   .eyebrow{
     font-size:0.72rem;
@@ -56,285 +117,210 @@
     color:var(--ink);
     line-height:1.15;
   }
-  .script{
-    font-family:'Caveat',cursive;
-    font-weight:700;
-  }
-  p{
-    font-size:0.98rem;
-    line-height:1.65;
-    color:var(--ink-soft);
-    max-width:460px;
-  }
+  .script{ font-family:'Caveat',cursive; font-weight:700; }
+  p{ font-size:0.98rem; line-height:1.65; color:var(--ink-soft); max-width:440px; }
 
-  /* ---------- ambient petals ---------- */
-  .petal-field{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;}
+  /* ---------- ambient: petals + hearts + sparkles ---------- */
+  .petal-field{position:fixed;inset:0;pointer-events:none;z-index:3;overflow:hidden;}
   .petal{
-    position:absolute;
-    top:-8%;
-    width:14px;height:14px;
+    position:absolute; top:-8%; width:14px;height:14px;
     background:radial-gradient(circle at 30% 30%, #f6c9c9, var(--rose) 120%);
     border-radius:60% 0 60% 0;
-    opacity:0.55;
+    opacity:0.5;
     animation:fall linear infinite;
   }
-  @keyframes fall{
-    to{ transform:translateY(115vh) rotate(320deg); }
+  .heart-float{
+    position:absolute; bottom:-8%;
+    font-size:16px; opacity:0.55;
+    animation:rise linear infinite;
+    filter:drop-shadow(0 2px 3px rgba(138,52,68,0.25));
+  }
+  .spark{
+    position:absolute;
+    width:5px;height:5px;
+    background:var(--gold);
+    border-radius:50%;
+    box-shadow:0 0 8px 2px rgba(207,164,92,0.7);
+    animation:twinkle 2.4s ease-in-out infinite;
+  }
+  @keyframes fall{ to{ transform:translateY(115vh) rotate(320deg); } }
+  @keyframes rise{ to{ transform:translateY(-118vh) translateX(10px) rotate(15deg); } }
+  @keyframes twinkle{ 0%,100%{opacity:0.15; transform:scale(0.7);} 50%{opacity:1; transform:scale(1.15);} }
+
+  .glow-behind{
+    position:absolute;
+    width:280px;height:280px;
+    background:radial-gradient(circle, rgba(181,73,91,0.22), transparent 70%);
+    filter:blur(6px);
+    z-index:0;
+    pointer-events:none;
   }
 
   /* ---------- SCENE 0 : cover ---------- */
   .ring{
-    width:200px;height:200px;
-    border:1px solid rgba(138,52,68,0.25);
+    width:190px;height:190px;
+    border:1px solid rgba(138,52,68,0.28);
     border-radius:50%;
     display:flex;align-items:center;justify-content:center;
-    margin:34px auto;
+    margin:30px auto;
+    position:relative;
     animation:spin 40s linear infinite;
   }
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .ring span{
-    position:absolute;
-    font-size:22px;
-    animation:counterspin 40s linear infinite;
+  .ring:after{
+    content:'';
+    position:absolute; inset:-14px;
+    border:1px dashed rgba(207,164,92,0.35);
+    border-radius:50%;
+    animation:spin 60s linear infinite reverse;
   }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .ring span{ font-size:22px; animation:counterspin 40s linear infinite; }
   @keyframes counterspin{to{transform:rotate(-360deg);}}
   .tap-hint{
-    margin-top:30px;
-    font-size:0.8rem;
-    letter-spacing:0.08em;
-    color:var(--ink-soft);
+    margin-top:26px; font-size:0.8rem; letter-spacing:0.08em; color:var(--ink-soft);
     animation:pulse 2s ease-in-out infinite;
+    display:flex; align-items:center; gap:8px;
   }
   @keyframes pulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
 
   /* ---------- SCENE 1 : envelope ---------- */
-  .envelope-wrap{
-    position:relative;
-    width:260px;height:170px;
-    margin:40px auto 10px;
-    cursor:pointer;
-  }
+  .envelope-wrap{ position:relative; width:250px;height:164px; margin:36px auto 8px; cursor:pointer; }
   .env-back{
     position:absolute;inset:0;
     background:linear-gradient(160deg,#fff,#f6e9df);
     border-radius:8px;
-    box-shadow:0 20px 40px -18px rgba(74,54,47,0.4);
+    box-shadow:0 20px 44px -18px rgba(74,54,47,0.45);
   }
   .env-card{
-    position:absolute;
-    left:18px; top:-14px;
-    width:224px;height:150px;
-    background:var(--paper);
-    border-radius:6px;
+    position:absolute; left:17px; top:-13px; width:216px;height:144px;
+    background:var(--paper); border-radius:6px;
     box-shadow:0 10px 24px -12px rgba(74,54,47,0.35);
     transition:transform 0.7s cubic-bezier(.2,.8,.2,1);
     display:flex;align-items:center;justify-content:center;
-    font-family:'Caveat',cursive;
-    color:var(--ink-soft);
-    font-size:1.1rem;
-    padding:18px;
+    font-family:'Caveat',cursive; color:var(--ink-soft); font-size:1.1rem; padding:16px;
   }
-  .envelope-wrap.open .env-card{ transform:translateY(-120px) rotate(-3deg); }
+  .envelope-wrap.open .env-card{ transform:translateY(-116px) rotate(-3deg); }
   .seal{
-    position:absolute;
-    left:50%;top:58%;
-    transform:translate(-50%,-50%);
-    width:74px;height:74px;
-    border-radius:50%;
+    position:absolute; left:50%; top:58%; transform:translate(-50%,-50%);
+    width:70px;height:70px; border-radius:50%;
     background:radial-gradient(circle at 35% 30%, #d17c88, var(--rose-deep) 75%);
-    box-shadow:0 6px 14px -4px rgba(138,52,68,0.6);
-    display:flex;align-items:center;justify-content:center;
-    color:#f4d9d0;
-    font-size:1.4rem;
-    z-index:2;
+    box-shadow:0 0 0 6px rgba(207,164,92,0.15), 0 6px 16px -4px rgba(138,52,68,0.6);
+    display:flex;align-items:center;justify-content:center; color:#f4d9d0; font-size:1.35rem; z-index:2;
     transition:transform 0.4s ease, opacity 0.4s ease;
+    animation:sealPulse 2.4s ease-in-out infinite;
   }
+  @keyframes sealPulse{ 0%,100%{ box-shadow:0 0 0 6px rgba(207,164,92,0.15),0 6px 16px -4px rgba(138,52,68,0.6);} 50%{ box-shadow:0 0 0 12px rgba(207,164,92,0.05),0 6px 16px -4px rgba(138,52,68,0.6);} }
   .envelope-wrap.open .seal{ transform:translate(-50%,-50%) scale(0); opacity:0; }
-  .envelope-wrap:active .seal{ transform:translate(-50%,-50%) scale(0.92); }
 
-  /* ---------- SCENE 2 : letter scroll ---------- */
+  /* ---------- SCENE 2 : letter ---------- */
   .scroll-paper{
-    background:var(--paper);
-    width:min(340px,86vw);
-    border-radius:16px;
-    padding:36px 26px 30px;
+    background:var(--paper); width:min(340px,86vw); border-radius:16px;
+    padding:34px 24px 26px;
     box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
-    position:relative;
+    position:relative; max-height:76svh; overflow-y:auto;
   }
   .scroll-paper:before, .scroll-paper:after{
-    content:'';
-    position:absolute; left:8%; right:8%;
-    height:18px;
-    background:linear-gradient(#fff,#f1e4d8);
-    border-radius:40px;
-    box-shadow:0 4px 8px rgba(0,0,0,0.08);
+    content:''; position:absolute; left:8%; right:8%; height:16px;
+    background:linear-gradient(#fff,#f1e4d8); border-radius:40px; box-shadow:0 4px 8px rgba(0,0,0,0.08);
   }
-  .scroll-paper:before{ top:-9px; }
-  .scroll-paper:after{ bottom:-9px; }
-  .letter-body{
-    font-size:0.95rem;
-    line-height:1.85;
-    color:var(--ink);
-    text-align:left;
-    margin-top:18px;
-  }
+  .scroll-paper:before{ top:-8px; } .scroll-paper:after{ bottom:-8px; }
+  .letter-body{ font-size:0.94rem; line-height:1.8; color:var(--ink); text-align:left; margin-top:16px; }
   .letter-body strong{ color:var(--rose-deep); }
 
   /* ---------- buttons ---------- */
   .btn{
-    border:none;
-    border-radius:999px;
-    padding:15px 30px;
-    font-family:'Poppins',sans-serif;
-    font-weight:600;
-    font-size:0.95rem;
-    cursor:pointer;
+    border:none; border-radius:999px; padding:15px 30px;
+    font-family:'Poppins',sans-serif; font-weight:600; font-size:0.95rem; cursor:pointer;
     transition:transform 0.25s ease, box-shadow 0.25s ease;
   }
   .btn-primary{
-    background:var(--rose-deep);
-    color:#fbe9e4;
-    box-shadow:0 12px 24px -12px rgba(138,52,68,0.6);
+    background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+    color:#fbe9e4; box-shadow:0 12px 26px -12px rgba(138,52,68,0.65);
   }
   .btn-primary:active{ transform:scale(0.96); }
-  .btn-ghost{
-    background:transparent;
-    color:var(--ink-soft);
-    border:1px solid rgba(138,52,68,0.3);
-  }
+  .btn-ghost{ background:transparent; color:var(--ink-soft); border:1px solid rgba(138,52,68,0.3); }
 
   /* ---------- SCENE 3 : mini mission ---------- */
   .mission-card{
-    background:var(--paper);
-    width:min(320px,86vw);
-    border-radius:20px;
-    padding:44px 26px;
+    background:var(--paper); width:min(320px,86vw); border-radius:20px; padding:42px 24px;
     box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
   }
-  .mission-caption{
-    min-height:44px;
-    font-size:0.85rem;
-    color:var(--ink-soft);
-    margin:14px 0 26px;
-    transition:opacity .3s ease;
-  }
-  .mission-btns{
-    display:flex; gap:14px; align-items:center; justify-content:center;
-    flex-wrap:wrap;
-  }
-  #btnYes{ transition:all 0.35s cubic-bezier(.2,.8,.2,1); }
-  #btnNo{ transition:all 0.35s cubic-bezier(.2,.8,.2,1); }
+  .mission-caption{ min-height:44px; font-size:0.85rem; color:var(--ink-soft); margin:14px 0 24px; transition:opacity .3s ease; }
+  .mission-btns{ display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap; }
+  #btnYes, #btnNo{ transition:all 0.35s cubic-bezier(.2,.8,.2,1); }
 
   /* ---------- SCENE 4 : certificate ---------- */
   .certificate{
-    background:var(--paper);
-    width:min(340px,86vw);
-    border-radius:16px;
-    padding:38px 26px;
-    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
-    position:relative;
+    background:var(--paper); width:min(340px,86vw); border-radius:16px; padding:36px 24px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35); position:relative;
   }
   .stamp{
-    width:96px;height:96px;
-    margin:20px auto;
-    border-radius:50%;
-    border:3px double var(--rose);
-    display:flex;align-items:center;justify-content:center;
-    font-size:2rem;
-    color:var(--rose);
-    opacity:0;
-    transform:scale(0.4) rotate(-15deg);
+    width:92px;height:92px; margin:18px auto; border-radius:50%;
+    border:3px double var(--rose); display:flex;align-items:center;justify-content:center;
+    font-size:1.9rem; color:var(--rose); opacity:0; transform:scale(0.4) rotate(-15deg);
     transition:all 0.5s cubic-bezier(.2,.8,.2,1);
   }
   .stamp.show{ opacity:1; transform:scale(1) rotate(-8deg); }
 
   /* ---------- SCENE 5 : bouquet ---------- */
-  .bouquet{
-    width:220px;height:240px;
-    position:relative;
-    margin:10px auto 24px;
-  }
-  .flower{
-    position:absolute;
-    border-radius:50%;
-    transform-origin:bottom center;
-  }
-  .stem{
-    position:absolute;
-    bottom:0; left:50%;
-    width:6px; height:120px;
-    background:linear-gradient(#6f8f5e,#4d6b40);
-    border-radius:6px;
-    transform:translateX(-50%) rotate(0deg);
-    transform-origin:bottom center;
-  }
-  .wrap-paper{
-    position:absolute;
-    bottom:-6px; left:50%;
-    transform:translateX(-50%);
-    width:170px;height:90px;
-    background:linear-gradient(180deg,#fff,#f2e6d8);
-    clip-path:polygon(50% 0%, 100% 100%, 0% 100%);
-    box-shadow:0 10px 20px -10px rgba(0,0,0,0.25);
-  }
-  .ribbon{
-    position:absolute;
-    bottom:36px; left:50%;
-    transform:translateX(-50%);
-    width:46px;height:20px;
-    background:var(--rose-deep);
-    border-radius:3px;
-  }
-  .tag{
-    display:inline-flex;
-    gap:8px; align-items:center;
-    border:1px solid rgba(138,52,68,0.25);
-    border-radius:999px;
-    padding:8px 16px;
-    font-size:0.82rem;
-    color:var(--rose-deep);
-    font-weight:600;
-    margin:5px;
-  }
+  .bouquet{ width:210px;height:230px; position:relative; margin:8px auto 20px; }
+  .flower{ position:absolute; border-radius:50%; }
+  .stem{ position:absolute; bottom:0; left:50%; width:6px; height:112px; background:linear-gradient(#6f8f5e,#4d6b40); border-radius:6px; transform-origin:bottom center; }
+  .wrap-paper{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:164px;height:86px; background:linear-gradient(180deg,#fff,#f2e6d8); clip-path:polygon(50% 0%, 100% 100%, 0% 100%); box-shadow:0 10px 20px -10px rgba(0,0,0,0.25); }
+  .ribbon{ position:absolute; bottom:34px; left:50%; transform:translateX(-50%); width:44px;height:19px; background:var(--rose-deep); border-radius:3px; }
+  .tag{ display:inline-flex; gap:8px; align-items:center; border:1px solid rgba(138,52,68,0.25); border-radius:999px; padding:8px 15px; font-size:0.8rem; color:var(--rose-deep); font-weight:600; margin:4px; }
 
-  .footer-note{
-    margin-top:34px;
-    font-size:0.78rem;
-    color:var(--ink-soft);
-    text-decoration:underline;
+  .footer-note{ margin-top:28px; font-size:0.78rem; color:var(--ink-soft); text-decoration:underline; cursor:pointer; }
+
+  /* ---------- music toggle ---------- */
+  #musicBtn{
+    position:fixed;
+    right:16px;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 16px);
+    z-index:60;
+    width:50px;height:50px;
+    border-radius:50%;
+    border:none;
+    background:var(--paper);
+    box-shadow:0 10px 24px -8px rgba(74,54,47,0.4);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
     cursor:pointer;
   }
+  #musicBtn.playing{ animation:discSpin 3.2s linear infinite; }
+  @keyframes discSpin{ to{ transform:rotate(360deg); } }
 
   ::selection{ background:var(--blush); }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ animation:none !important; transition:none !important; }
-  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
 </style>
 </head>
 <body>
 
 <div class="petal-field" id="petalField"></div>
 
-<div id="scenes">
+<div id="progress"></div>
+
+<div id="stage">
 
   <!-- SCENE 0 — COVER -->
-  <section class="scene" id="scene0">
+  <section class="scene" data-scene="0">
+    <div class="tap-catch" onclick="next()"></div>
+    <div class="glow-behind"></div>
     <div class="eyebrow">khusus buat Ara</div>
     <h1 style="font-size:1.6rem;">Gerdy mau ngomong<br>sesuatu, boleh?</h1>
-    <div class="ring">
-      <span>🌸</span>
-    </div>
+    <div class="ring"><span>🌸</span></div>
     <p>Bacanya pelan-pelan aja ya. Ini bukan basa-basi, ini beneran dari hati.</p>
-    <div class="tap-hint">↓ geser ke bawah</div>
+    <div class="tap-hint">tap layar buat lanjut ✨</div>
   </section>
 
   <!-- SCENE 1 — ENVELOPE -->
-  <section class="scene" id="scene1">
+  <section class="scene" data-scene="1">
+    <div class="glow-behind"></div>
     <div class="eyebrow">private confession</div>
     <h1 style="font-size:1.75rem;">Buat Ara,<br>dari Gerdy.</h1>
     <p style="margin-top:10px;">Tap segelnya. Suratnya bakal kebuka sendiri.</p>
-    <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
+    <div class="envelope-wrap" id="envelope" onclick="event.stopPropagation(); openEnvelope();">
       <div class="env-back"></div>
       <div class="env-card">buat Ara,<br>dari Gerdy 🤍</div>
       <div class="seal" id="sealBtn">💌</div>
@@ -342,10 +328,10 @@
   </section>
 
   <!-- SCENE 2 — LETTER -->
-  <section class="scene" id="scene2">
-    <div class="scroll-paper reveal">
+  <section class="scene" data-scene="2">
+    <div class="scroll-paper" onclick="event.stopPropagation();">
       <div class="eyebrow" style="margin-bottom:2px;">dari Gerdy</div>
-      <h1 class="script" style="font-size:2.4rem;color:var(--rose-deep);">Maafin Gerdy Yaa</h1>
+      <h1 class="script" style="font-size:2.3rem;color:var(--rose-deep);">Maafin Gerdy Yaa</h1>
       <div class="letter-body">
         Ara, Gerdy tau akhir-akhir ini <strong>salahnya Gerdy udah kebanyakan</strong>. Bukan cuma satu, tapi numpuk — dan Gerdy nggak mau cari alasan buat itu semua.
         <br><br>
@@ -355,16 +341,17 @@
         <br><br>
         Gerdy cuma pengen Ara tau satu hal: <strong>Gerdy sayang kamu</strong>, dan Gerdy pengen jadi lebih baik — bukan cuma janji doang.
       </div>
-      <div style="margin-top:26px;">
-        <button class="btn btn-primary" onclick="scrollToId('scene3')">Oke, lanjut</button>
+      <div style="margin-top:24px;">
+        <button class="btn btn-primary" onclick="event.stopPropagation(); next();">Oke, lanjut</button>
       </div>
     </div>
   </section>
 
   <!-- SCENE 3 — MINI MISSION -->
-  <section class="scene" id="scene3">
+  <section class="scene" data-scene="3">
+    <div class="glow-behind"></div>
     <div class="eyebrow">satu permintaan kecil</div>
-    <div class="mission-card">
+    <div class="mission-card" onclick="event.stopPropagation();">
       <h1 style="font-size:1.7rem;">Mau maafin<br>Gerdy?</h1>
       <div class="mission-caption" id="missionCaption">Gerdy janji bakal lebih baik lagi.</div>
       <div class="mission-btns">
@@ -375,68 +362,124 @@
   </section>
 
   <!-- SCENE 4 — CERTIFICATE -->
-  <section class="scene" id="scene4">
-    <div class="certificate">
+  <section class="scene" data-scene="4">
+    <div class="certificate" onclick="event.stopPropagation();">
       <div class="eyebrow" style="color:var(--gold);">hasil scan: valid</div>
       <h1 style="font-size:1.7rem;">Sertifikat<br>Baikan Lagi</h1>
-      <p style="margin:16px auto 0;">Dengan ini, Ara resmi udah maafin Gerdy. Mulai sekarang kita baikan lagi, dan Gerdy janji lebih perhatian, lebih peka, dan nggak ngulang kesalahan yang sama.</p>
+      <p style="margin:14px auto 0;">Dengan ini, Ara resmi udah maafin Gerdy. Mulai sekarang kita baikan lagi, dan Gerdy janji lebih perhatian, lebih peka, dan nggak ngulang kesalahan yang sama.</p>
       <div class="stamp" id="stamp">🤍</div>
       <p style="font-size:0.85rem;">Dari Gerdy, buat Ara. Simpan baik-baik ya.</p>
-      <div style="margin-top:22px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <span class="footer-note" style="text-decoration:none;color:var(--rose-deep);">Screenshot ini, terus kirim ke Gerdy 📩</span>
-        <button class="btn btn-primary" onclick="scrollToId('scene5')">Lanjut ke bouquet</button>
+        <button class="btn btn-primary" onclick="next()">Lanjut ke bouquet</button>
       </div>
     </div>
   </section>
 
   <!-- SCENE 5 — BOUQUET -->
-  <section class="scene" id="scene5">
-    <div class="bouquet" id="bouquet">
+  <section class="scene" data-scene="5">
+    <div class="glow-behind"></div>
+    <div class="bouquet">
       <div class="stem" style="transform:translateX(-50%) rotate(-8deg);"></div>
       <div class="stem" style="transform:translateX(-50%) rotate(6deg);"></div>
       <div class="stem" style="transform:translateX(-50%) rotate(0deg);"></div>
-      <div class="flower" style="width:56px;height:56px;left:40px;top:34px;background:radial-gradient(circle at 35% 30%,#e6899a,var(--rose-deep));"></div>
-      <div class="flower" style="width:64px;height:64px;left:82px;top:16px;background:radial-gradient(circle at 35% 30%,#eb96a4,var(--rose));"></div>
-      <div class="flower" style="width:50px;height:50px;left:130px;top:40px;background:radial-gradient(circle at 35% 30%,#f0aeb8,var(--rose));"></div>
-      <div class="flower" style="width:30px;height:30px;left:60px;top:10px;background:#fff8ef;box-shadow:inset 0 0 0 6px #e8d3b8;"></div>
-      <div class="flower" style="width:26px;height:26px;left:150px;top:20px;background:#fff8ef;box-shadow:inset 0 0 0 5px #e8d3b8;"></div>
+      <div class="flower" style="width:54px;height:54px;left:38px;top:32px;background:radial-gradient(circle at 35% 30%,#e6899a,var(--rose-deep));"></div>
+      <div class="flower" style="width:62px;height:62px;left:78px;top:14px;background:radial-gradient(circle at 35% 30%,#eb96a4,var(--rose));"></div>
+      <div class="flower" style="width:48px;height:48px;left:124px;top:38px;background:radial-gradient(circle at 35% 30%,#f0aeb8,var(--rose));"></div>
+      <div class="flower" style="width:28px;height:28px;left:58px;top:8px;background:#fff8ef;box-shadow:inset 0 0 0 6px #e8d3b8;"></div>
+      <div class="flower" style="width:24px;height:24px;left:144px;top:18px;background:#fff8ef;box-shadow:inset 0 0 0 5px #e8d3b8;"></div>
       <div class="ribbon"></div>
       <div class="wrap-paper"></div>
     </div>
     <div class="eyebrow">buat Ara</div>
-    <h1 class="script" style="font-size:2.1rem;color:var(--rose-deep);">Makasih Udah<br>Mau Maafin Aku</h1>
+    <h1 class="script" style="font-size:2rem;color:var(--rose-deep);">Makasih Udah<br>Mau Maafin Aku</h1>
     <p>Ara, makasih udah kasih Gerdy satu kesempatan lagi. Gerdy sayang kamu, dan ini janji Gerdy — bukan cuma kata-kata.</p>
-    <div style="margin-top:16px;">
+    <div style="margin-top:14px;">
       <span class="tag">🤍 Lebih peka</span>
       <span class="tag">🌷 Lebih sabar</span>
       <span class="tag">💌 Selalu jujur</span>
     </div>
-    <div class="footer-note" onclick="scrollToId('scene0')">Ulang dari awal</div>
+    <div class="footer-note" onclick="event.stopPropagation(); goTo(0);">Ulang dari awal</div>
   </section>
 
 </div>
 
+<!-- floating music toggle. Ganti src audio di bawah dengan lagu pilihan kamu (mp3 sendiri / link legal). -->
+<button id="musicBtn" onclick="toggleMusic()" title="Musik">🎵</button>
+<audio id="bgm" loop preload="none">
+  <!-- <source src="nama-file-lagu-kamu.mp3" type="audio/mpeg"> -->
+</audio>
+
 <script>
-  // ambient petals
+  // ambient petals + hearts + sparkles
   const field = document.getElementById('petalField');
-  for(let i=0;i<22;i++){
+  for(let i=0;i<18;i++){
     const p = document.createElement('div');
     p.className='petal';
     p.style.left = Math.random()*100+'vw';
     p.style.animationDuration = (10+Math.random()*10)+'s';
     p.style.animationDelay = (Math.random()*10)+'s';
-    p.style.opacity = 0.25+Math.random()*0.4;
+    p.style.opacity = 0.2+Math.random()*0.35;
     p.style.transform = `scale(${0.6+Math.random()*0.9})`;
     field.appendChild(p);
   }
-
-  function scrollToId(id){
-    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+  const heartEmojis = ['🤍','💗','🌷'];
+  for(let i=0;i<10;i++){
+    const h = document.createElement('div');
+    h.className='heart-float';
+    h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+    h.style.left = Math.random()*100+'vw';
+    h.style.animationDuration = (12+Math.random()*10)+'s';
+    h.style.animationDelay = (Math.random()*12)+'s';
+    field.appendChild(h);
   }
+  for(let i=0;i<14;i++){
+    const s = document.createElement('div');
+    s.className='spark';
+    s.style.left = Math.random()*100+'vw';
+    s.style.top = Math.random()*100+'vh';
+    s.style.animationDelay = (Math.random()*2.4)+'s';
+    field.appendChild(s);
+  }
+
+  // ---- paged navigation ----
+  const scenes = Array.from(document.querySelectorAll('.scene'));
+  const total = scenes.length;
+  let current = 0;
+
+  const progressEl = document.getElementById('progress');
+  scenes.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.className='dot';
+    d.innerHTML = '<i></i>';
+    progressEl.appendChild(d);
+  });
+  const dots = Array.from(progressEl.children);
+
+  function renderProgress(){
+    dots.forEach((d,i)=>{ d.classList.toggle('done', i<=current); });
+  }
+
+  function goTo(index){
+    if(index<0 || index>=total || index===current) return;
+    const cur = scenes[current];
+    const nextScene = scenes[index];
+    cur.classList.add('exit');
+    cur.classList.remove('active');
+    setTimeout(()=>{ cur.classList.remove('exit'); }, 550);
+    nextScene.classList.add('active');
+    current = index;
+    renderProgress();
+  }
+  function next(){ goTo(current+1); }
+
+  // init
+  scenes[0].classList.add('active');
+  renderProgress();
 
   function openEnvelope(){
     document.getElementById('envelope').classList.add('open');
-    setTimeout(()=>scrollToId('scene2'), 900);
+    setTimeout(()=> next(), 900);
   }
 
   // mini mission logic
@@ -464,11 +507,25 @@
     if(noClicks>=4){ no.style.pointerEvents='none'; }
   }
   function pickYes(){
-    scrollToId('scene4');
+    next();
     setTimeout(()=>{ document.getElementById('stamp').classList.add('show'); }, 500);
+  }
+
+  // background music toggle
+  const bgm = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  let playing = false;
+  function toggleMusic(){
+    if(!bgm.querySelector('source')){
+      musicBtn.textContent = '🔇';
+      musicBtn.title = 'musik1.mp3';
+      return;
+    }
+    if(playing){ bgm.pause(); musicBtn.classList.remove('playing'); }
+    else { bgm.play().catch(()=>{}); musicBtn.classList.add('playing'); }
+    playing = !playing;
   }
 </script>
 
 </body>
 </html>
-
