@@ -226,7 +226,99 @@
   .letter-body{ font-size:0.94rem; line-height:1.8; color:var(--ink); text-align:left; margin-top:16px; }
   .letter-body strong{ color:var(--rose-deep); }
 
-  /* ---------- buttons ---------- */
+  /* ---------- SCENE gombalan ---------- */
+  .gombal-card{
+    background:var(--paper); width:min(340px,86vw); border-radius:20px; padding:38px 24px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+    min-height:200px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .gombal-text{
+    font-family:'Caveat',cursive;
+    font-size:1.5rem;
+    color:var(--rose-deep);
+    line-height:1.4;
+    min-height:110px;
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity 0.25s ease;
+  }
+
+  /* ---------- SCENE gift ---------- */
+  .gift-row{ display:flex; gap:16px; justify-content:center; margin:20px 0 8px; flex-wrap:wrap; }
+  .gift-box{
+    width:78px;height:78px;
+    background:linear-gradient(160deg,#fff,#f6e9df);
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;
+    cursor:pointer;
+    box-shadow:0 14px 26px -14px rgba(74,54,47,0.4);
+    transition:transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s ease;
+    position:relative;
+  }
+  .gift-box:active{ transform:scale(0.92); }
+  .gift-box.opened{
+    background:linear-gradient(160deg,var(--blush),#f6cfc3);
+    transform:scale(1.05) rotate(-2deg);
+  }
+  .gift-reveal{
+    background:var(--paper);
+    border-radius:14px;
+    padding:16px 18px;
+    font-size:0.88rem;
+    color:var(--ink);
+    max-width:300px;
+    margin:14px auto 0;
+    box-shadow:0 10px 22px -12px rgba(74,54,47,0.3);
+    display:none;
+    text-align:left;
+    line-height:1.55;
+  }
+  .gift-reveal.show{ display:block; }
+
+  /* ---------- SCENE reasons ---------- */
+  .reason-card{
+    background:var(--paper); width:min(340px,86vw); border-radius:20px; padding:32px 24px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+  }
+  .reason-item{
+    display:flex; align-items:flex-start; gap:10px;
+    text-align:left; font-size:0.9rem; color:var(--ink);
+    padding:10px 0; border-bottom:1px dashed rgba(138,52,68,0.15);
+    opacity:0; transform:translateY(8px);
+    animation:reasonIn 0.5s ease forwards;
+  }
+  .reason-item:last-child{ border-bottom:none; }
+  @keyframes reasonIn{ to{ opacity:1; transform:translateY(0);} }
+
+  /* ---------- SCENE hukuman ---------- */
+  .hukuman-card{
+    background:var(--paper); width:min(340px,86vw); border-radius:20px; padding:34px 24px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+  }
+  .hukuman-opts{ display:flex; flex-direction:column; gap:10px; margin-top:18px; }
+  .hukuman-opt{
+    border:1px solid rgba(138,52,68,0.25);
+    background:transparent;
+    border-radius:14px;
+    padding:13px 16px;
+    font-size:0.88rem;
+    color:var(--ink);
+    cursor:pointer;
+    text-align:left;
+    transition:all 0.25s ease;
+  }
+  .hukuman-opt.picked{
+    background:linear-gradient(135deg,var(--rose),var(--rose-deep));
+    color:#fbe9e4;
+    border-color:transparent;
+  }
+  .hukuman-reply{
+    margin-top:16px; font-size:0.85rem; color:var(--rose-deep); font-weight:600;
+    display:none;
+  }
+  .hukuman-reply.show{ display:block; }
+
   .btn{
     border:none; border-radius:999px; padding:15px 30px;
     font-family:'Poppins',sans-serif; font-weight:600; font-size:0.95rem; cursor:pointer;
@@ -337,11 +429,234 @@
         Ara nggak pernah minta banyak, tapi Gerdy masih sering bikin kamu kecewa. Gerdy sadar itu, dan Gerdy beneran menyesal.
         <br><br>
         Gerdy cuma pengen Ara tau satu hal: <strong>Gerdy sayang kamu</strong>, dan Gerdy pengen jadi lebih baik — bukan cuma janji doang.
+        <br><br>
+        <span style="font-size:0.85rem;color:var(--ink-soft);">(P.S. Gerdy juga susah move on dari kamu, jadi mohon kerjasamanya buat baikan lagi ya 🥹)</span>
       </div>
       <div style="margin-top:24px;">
         <button class="btn btn-primary" onclick="event.stopPropagation(); next();">Oke, lanjut</button>
       </div>
     </div>
+  </section>
+
+  <!-- SCENE — GOMBALAN -->
+  <section class="scene" data-scene="gombal">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">bentar, serius dikit boleh gombal juga kan</div>
+    <div class="gombal-card" onclick="event.stopPropagation();">
+      <div class="gombal-text" id="gombalText">Ara tau gak bedanya kamu sama wifi? Nggak ada — dua-duanya bikin Gerdy susah move on dari HP 📶</div>
+      <button class="btn btn-ghost" style="margin-top:18px;" onclick="gombalNext()">Gombalan lagi dong 😅</button>
+    </div>
+    <button class="btn btn-primary" style="margin-top:22px;" onclick="next()">Lanjut ah, malu</button>
+  </section>
+
+  <!-- SCENE — SURPRISE GIFT -->
+  <section class="scene" data-scene="gift">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">kado kecil dari Gerdy</div>
+    <h1 style="font-size:1.6rem;">Pilih kadonya,<br>buka satu-satu ya</h1>
+    <div class="gift-row" onclick="event.stopPropagation();">
+      <div class="gift-box" id="gift0" onclick="openGift(0)">🎁</div>
+      <div class="gift-box" id="gift1" onclick="openGift(1)">🎁</div>
+      <div class="gift-box" id="gift2" onclick="openGift(2)">🎁</div>
+      <div class="gift-box" id="gift3" onclick="openGift(3)">🎁</div>
+    </div>
+    <div class="gift-reveal" id="giftReveal" onclick="event.stopPropagation();"></div>
+    <button class="btn btn-primary" style="margin-top:24px;" onclick="next()">Lanjut</button>
+  </section>
+
+  <!-- SCENE — REASONS -->
+  <section class="scene" data-scene="reasons">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">alasan kenapa Gerdy sayang Ara</div>
+    <div class="reason-card" onclick="event.stopPropagation();" id="reasonCard">
+      <div class="reason-item" style="animation-delay:0.05s;">😄 Ketawanya Ara paling gampang bikin Gerdy ikut senyum sendiri</div>
+      <div class="reason-item" style="animation-delay:0.2s;">🍜 Rela nemenin Gerdy makan yang itu-itu aja tanpa protes (banyak)</div>
+      <div class="reason-item" style="animation-delay:0.35s;">😤 Galaknya Ara pas ngingetin Gerdy sebenernya bentuk sayang, Gerdy tau kok</div>
+      <div class="reason-item" style="animation-delay:0.5s;">🫂 Selalu ada pas Gerdy lagi susah, walau Gerdy sering nyusahin</div>
+      <div class="reason-item" style="animation-delay:0.65s;">💗 Karena Ara mau baca sampe scene ini, artinya masih ada harapan buat Gerdy</div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:22px;" onclick="next()">Lanjut</button>
+  </section>
+
+  <!-- SCENE — HUKUMAN -->
+  <section class="scene" data-scene="hukuman">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">biar adil, Ara boleh milih hukuman</div>
+    <div class="hukuman-card" onclick="event.stopPropagation();">
+      <h1 style="font-size:1.5rem;">Gerdy pantes<br>dihukum apa?</h1>
+      <div class="hukuman-opts" id="hukumanOpts">
+        <button class="hukuman-opt" onclick="pickHukuman(this,0)">🍽️ Traktir Ara sebulan penuh</button>
+        <button class="hukuman-opt" onclick="pickHukuman(this,1)">🚗 Jadi supir pribadi kapan aja dipanggil</button>
+        <button class="hukuman-opt" onclick="pickHukuman(this,2)">👂 Dengerin curhat Ara 3 jam tanpa main HP</button>
+        <button class="hukuman-opt" onclick="pickHukuman(this,3)">🙇 Semuanya sekalian, Gerdy terima</button>
+      </div>
+      <div class="hukuman-reply" id="hukumanReply"></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:22px;" onclick="next()">Lanjut</button>
+  </section>
+
+  /* ---------- SCENE 3 : mini mission ---------- */
+  .mission-card{
+    background:var(--paper); width:min(320px,86vw); border-radius:20px; padding:42px 24px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35);
+  }
+  .mission-caption{ min-height:44px; font-size:0.85rem; color:var(--ink-soft); margin:14px 0 24px; transition:opacity .3s ease; }
+  .mission-btns{ display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap; }
+  #btnYes, #btnNo{ transition:all 0.35s cubic-bezier(.2,.8,.2,1); }
+
+  /* ---------- SCENE 4 : certificate ---------- */
+  .certificate{
+    background:var(--paper); width:min(340px,86vw); border-radius:16px; padding:36px 24px;
+    box-shadow:0 24px 50px -20px rgba(74,54,47,0.35); position:relative;
+  }
+  .stamp{
+    width:92px;height:92px; margin:18px auto; border-radius:50%;
+    border:3px double var(--rose); display:flex;align-items:center;justify-content:center;
+    font-size:1.9rem; color:var(--rose); opacity:0; transform:scale(0.4) rotate(-15deg);
+    transition:all 0.5s cubic-bezier(.2,.8,.2,1);
+  }
+  .stamp.show{ opacity:1; transform:scale(1) rotate(-8deg); }
+
+  /* ---------- SCENE 5 : bouquet ---------- */
+  .bouquet{ width:210px;height:230px; position:relative; margin:8px auto 20px; }
+  .flower{ position:absolute; border-radius:50%; }
+  .stem{ position:absolute; bottom:0; left:50%; width:6px; height:112px; background:linear-gradient(#6f8f5e,#4d6b40); border-radius:6px; transform-origin:bottom center; }
+  .wrap-paper{ position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); width:164px;height:86px; background:linear-gradient(180deg,#fff,#f2e6d8); clip-path:polygon(50% 0%, 100% 100%, 0% 100%); box-shadow:0 10px 20px -10px rgba(0,0,0,0.25); }
+  .ribbon{ position:absolute; bottom:34px; left:50%; transform:translateX(-50%); width:44px;height:19px; background:var(--rose-deep); border-radius:3px; }
+  .tag{ display:inline-flex; gap:8px; align-items:center; border:1px solid rgba(138,52,68,0.25); border-radius:999px; padding:8px 15px; font-size:0.8rem; color:var(--rose-deep); font-weight:600; margin:4px; }
+
+  .footer-note{ margin-top:28px; font-size:0.78rem; color:var(--ink-soft); text-decoration:underline; cursor:pointer; }
+
+  /* ---------- music toggle ---------- */
+  #musicBtn{
+    position:fixed;
+    right:16px;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 16px);
+    z-index:60;
+    width:50px;height:50px;
+    border-radius:50%;
+    border:none;
+    background:var(--paper);
+    box-shadow:0 10px 24px -8px rgba(74,54,47,0.4);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;
+    cursor:pointer;
+  }
+  #musicBtn.playing{ animation:discSpin 3.2s linear infinite; }
+  @keyframes discSpin{ to{ transform:rotate(360deg); } }
+
+  ::selection{ background:var(--blush); }
+
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="petal-field" id="petalField"></div>
+
+<div id="stage">
+
+  <!-- SCENE 0 — COVER -->
+  <section class="scene" data-scene="0">
+    <div class="tap-catch" onclick="next()"></div>
+    <div class="glow-behind"></div>
+    <div class="eyebrow">khusus buat Ara</div>
+    <h1 style="font-size:1.6rem;">Gerdy mau ngomong<br>sesuatu, boleh?</h1>
+    <div class="ring"><span>🌸</span></div>
+    <p>Bacanya pelan-pelan aja ya. Ini bukan basa-basi, ini beneran dari hati.</p>
+    <div class="tap-hint">tap layar buat lanjut ✨</div>
+  </section>
+
+  <!-- SCENE 1 — ENVELOPE -->
+  <section class="scene" data-scene="1">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">private confession</div>
+    <h1 style="font-size:1.75rem;">Buat Ara,<br>dari Gerdy.</h1>
+    <p style="margin-top:10px;">Tap segelnya. Suratnya bakal kebuka sendiri.</p>
+    <div class="envelope-wrap" id="envelope" onclick="event.stopPropagation(); openEnvelope();">
+      <div class="env-back"></div>
+      <div class="env-card">buat Ara,<br>dari Gerdy 🤍</div>
+      <div class="seal" id="sealBtn">💌</div>
+    </div>
+  </section>
+
+  <!-- SCENE 2 — LETTER -->
+  <section class="scene" data-scene="2">
+    <div class="scroll-paper" onclick="event.stopPropagation();">
+      <div class="eyebrow" style="margin-bottom:2px;">dari Gerdy</div>
+      <h1 class="script" style="font-size:2.3rem;color:var(--rose-deep);">Maafin Gerdy Yaa</h1>
+      <div class="letter-body">
+        Ara, Gerdy tau akhir-akhir ini <strong>salahnya Gerdy udah kebanyakan</strong>. Bukan cuma satu, tapi numpuk — dan Gerdy nggak mau cari alasan buat itu semua.
+        <br><br>
+        Maaf buat setiap kali kamu nunggu tapi Gerdy malah lupa, buat setiap kata Gerdy yang bikin kamu sedih tanpa Gerdy sadar, dan buat setiap saat kamu butuh Gerdy peka tapi Gerdy malah nggak ada.
+        <br><br>
+        Ara nggak pernah minta banyak, tapi Gerdy masih sering bikin kamu kecewa. Gerdy sadar itu, dan Gerdy beneran menyesal.
+        <br><br>
+        Gerdy cuma pengen Ara tau satu hal: <strong>Gerdy sayang kamu</strong>, dan Gerdy pengen jadi lebih baik — bukan cuma janji doang.
+        <br><br>
+        <span style="font-size:0.85rem;color:var(--ink-soft);">(P.S. Gerdy juga susah move on dari kamu, jadi mohon kerjasamanya buat baikan lagi ya 🥹)</span>
+      </div>
+      <div style="margin-top:24px;">
+        <button class="btn btn-primary" onclick="event.stopPropagation(); next();">Oke, lanjut</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE — GOMBALAN -->
+  <section class="scene" data-scene="gombal">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">bentar, serius dikit boleh gombal juga kan</div>
+    <div class="gombal-card" onclick="event.stopPropagation();">
+      <div class="gombal-text" id="gombalText">Ara tau gak bedanya kamu sama wifi? Nggak ada — dua-duanya bikin Gerdy susah move on dari HP 📶</div>
+      <button class="btn btn-ghost" style="margin-top:18px;" onclick="gombalNext()">Gombalan lagi dong 😅</button>
+    </div>
+    <button class="btn btn-primary" style="margin-top:22px;" onclick="next()">Lanjut ah, malu</button>
+  </section>
+
+  <!-- SCENE — SURPRISE GIFT -->
+  <section class="scene" data-scene="gift">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">kado kecil dari Gerdy</div>
+    <h1 style="font-size:1.6rem;">Pilih kadonya,<br>buka satu-satu ya</h1>
+    <div class="gift-row" onclick="event.stopPropagation();">
+      <div class="gift-box" id="gift0" onclick="openGift(0)">🎁</div>
+      <div class="gift-box" id="gift1" onclick="openGift(1)">🎁</div>
+      <div class="gift-box" id="gift2" onclick="openGift(2)">🎁</div>
+      <div class="gift-box" id="gift3" onclick="openGift(3)">🎁</div>
+    </div>
+    <div class="gift-reveal" id="giftReveal" onclick="event.stopPropagation();"></div>
+    <button class="btn btn-primary" style="margin-top:24px;" onclick="next()">Lanjut</button>
+  </section>
+
+  <!-- SCENE — REASONS -->
+  <section class="scene" data-scene="reasons">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">alasan kenapa Gerdy sayang Ara</div>
+    <div class="reason-card" onclick="event.stopPropagation();" id="reasonCard">
+      <div class="reason-item" style="animation-delay:0.05s;">😄 Ketawanya Ara paling gampang bikin Gerdy ikut senyum sendiri</div>
+      <div class="reason-item" style="animation-delay:0.2s;">🍜 Rela nemenin Gerdy makan yang itu-itu aja tanpa protes (banyak)</div>
+      <div class="reason-item" style="animation-delay:0.35s;">😤 Galaknya Ara pas ngingetin Gerdy sebenernya bentuk sayang, Gerdy tau kok</div>
+      <div class="reason-item" style="animation-delay:0.5s;">🫂 Selalu ada pas Gerdy lagi susah, walau Gerdy sering nyusahin</div>
+      <div class="reason-item" style="animation-delay:0.65s;">💗 Karena Ara mau baca sampe scene ini, artinya masih ada harapan buat Gerdy</div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:22px;" onclick="next()">Lanjut</button>
+  </section>
+
+  <!-- SCENE — HUKUMAN -->
+  <section class="scene" data-scene="hukuman">
+    <div class="glow-behind"></div>
+    <div class="eyebrow">biar adil, Ara boleh milih hukuman</div>
+    <div class="hukuman-card" onclick="event.stopPropagation();">
+      <h1 style="font-size:1.5rem;">Gerdy pantes<br>dihukum apa?</h1>
+      <div class="hukuman-opts" id="hukumanOpts">
+        <button class="hukuman-opt" onclick="pickHukuman(this,0)">🍽️ Traktir Ara sebulan penuh</button>
+        <button class="hukuman-opt" onclick="pickHukuman(this,1)">🚗 Jadi supir pribadi kapan aja dipanggil</button>
+        <button class="hukuman-opt" onclick="pickHukuman(this,2)">👂 Dengerin curhat Ara 3 jam tanpa main HP</button>
+        <button class="hukuman-opt" onclick="pickHukuman(this,3)">🙇 Semuanya sekalian, Gerdy terima</button>
+      </div>
+      <div class="hukuman-reply" id="hukumanReply"></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:22px;" onclick="next()">Lanjut</button>
   </section>
 
   <!-- SCENE 3 — MINI MISSION -->
@@ -464,6 +779,55 @@
     setTimeout(()=> next(), 900);
   }
 
+  // gombalan
+  const gombalLines = [
+    "Ara tau gak bedanya kamu sama wifi? Nggak ada — dua-duanya bikin Gerdy susah move on dari HP 📶",
+    "Kalau Ara jadi tugas kuliah, Gerdy nggak akan pernah telat ngerjain deh 📚",
+    "Maaf ya Ra, kayaknya Gerdy harus lapor polisi... kamu udah nyolong hati Gerdy dari lama 🚔",
+    "Ara ini pasti magnet ya? Soalnya dari tadi narik-narik perhatian Gerdy mulu 🧲",
+    "Kalo cinta itu mata kuliah, untung Gerdy nggak bakal pernah bolos kelasnya Ara 😌",
+    "Ara berat badan berapa sih? ...berat di hati Gerdy doang kalo lagi ngambek 🥲"
+  ];
+  let gombalIdx = 0;
+  function gombalNext(){
+    gombalIdx = (gombalIdx+1) % gombalLines.length;
+    const el = document.getElementById('gombalText');
+    el.style.opacity = 0;
+    setTimeout(()=>{ el.textContent = gombalLines[gombalIdx]; el.style.opacity = 1; }, 220);
+  }
+
+  // surprise gifts
+  const giftMessages = [
+    "Isinya: satu pelukan GRATIS kapan aja Ara mau (syarat & ketentuan: harus ketemu Gerdy dulu 😏)",
+    "Isinya: kupon 'Gerdy Nurut Apa Kata Ara' berlaku seumur hidup (kecuali disuruh diet dari micin, itu Gerdy nego dulu)",
+    "Isinya: janji Gerdy nggak bakal ngambek duluan lagi, walau kalah maen game bareng Ara 🎮",
+    "Isinya: kosong. Soalnya hati Gerdy udah kepake full sama Ara, gak nyisa tempat buat yang lain 🫶 (iya ini gombal, tapi jujur)"
+  ];
+  function openGift(i){
+    const box = document.getElementById('gift'+i);
+    if(box.classList.contains('opened')) return;
+    box.classList.add('opened');
+    box.textContent = '💝';
+    const reveal = document.getElementById('giftReveal');
+    reveal.textContent = giftMessages[i];
+    reveal.classList.add('show');
+  }
+
+  // hukuman
+  const hukumanReplies = [
+    "Siap, laksanakan. Gerdy udah nyiapin dompet 💸",
+    "Siap Bos, GPS udah nyala 24 jam buat Ara 🚗",
+    "Siap, HP Gerdy taruh di kamar sebelah biar nggak tergoda 📵",
+    "Deal. Gerdy terima semua paketnya, asal Ara mau baikan lagi 🥺🤍"
+  ];
+  function pickHukuman(btn, i){
+    document.querySelectorAll('.hukuman-opt').forEach(b=>b.classList.remove('picked'));
+    btn.classList.add('picked');
+    const reply = document.getElementById('hukumanReply');
+    reply.textContent = hukumanReplies[i];
+    reply.classList.add('show');
+  }
+
   // mini mission logic
   let noClicks = 0;
   const captions = [
@@ -492,6 +856,7 @@
     next();
     setTimeout(()=>{ document.getElementById('stamp').classList.add('show'); }, 500);
   }
+
   // background music toggle
   const bgm = document.getElementById('bgm');
   const musicBtn = document.getElementById('musicBtn');
